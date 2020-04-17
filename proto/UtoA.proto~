@@ -1,0 +1,95 @@
+/////////////////////////////////////////
+/// UtoA_1: ask what's inside in a package
+/////////////////////////////////////////
+message UPackageQuery {
+    required int64 packageid = 1;
+    required int64 seqnum = 2;
+    required int64 worldid = 3;
+}
+message APackageDetail {
+    required int64 packageid = 1;
+    repeated AProduct things = 2;   // Type "AProduct" is defined in "world_amazon.proto"
+    required int64 seqnum = 3;
+}
+
+////////////////////////////////////////////////////////
+/// UtoA_2: inform Amazon that I'm going to disconnect
+////////////////////////////////////////////////////////
+message UDisconnect{
+    required int64 seqnum = 1; 
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+/// UtoA_3: inform Amazon that I'm going to disconnect from some connected world(s)
+////////////////////////////////////////////////////////////////////////////////////
+message UDisconnectWorld {
+    repeated int64 worldid = 1;
+    required int64 seqnum = 2;
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+/// UtoA_4: inform Amazon that I'm going to connect to some connected world(s)
+////////////////////////////////////////////////////////////////////////////////////
+message UConnectWorld {
+    repeated int64 worldid = 1;
+    required int64 seqnum = 2;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// UtoA_5: ask which package ids are inside an amazon account (which is connected with a ups account)
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+message UAccountPackageQuery {
+    required int64 aAccountid = 1;
+    required int64 uAccountid = 2;
+    required int64 worldid = 3;
+    required int64 seqnum = 4;
+}
+message AAccountPackageDetail {
+    repeated int64 packageid = 1;
+    required int64 worldid = 2;
+    required int64 seqnum = 3;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////
+/// UtoA_6: Disconnect one UPS account with one or more connected Amazon account(s)
+////////////////////////////////////////////////////////////////////////////////////
+message UDisconnectAccount {
+    repeated int64 aAccountid = 1;
+    required int64 uAccountid = 2;
+    required int64 worldid = 3;
+    required int64 seqnum = 4;
+}
+
+/////////////////////////////////////////////////////////////////////////
+/// UtoA_7: Disconnect one UPS account with one or more connected package(s)
+/////////////////////////////////////////////////////////////////////////
+message UDisconnectPackage {
+    repeated int64 packageid = 1;
+    required int64 uAccountid = 2;
+    required int64 worldid = 3;
+    required int64 seqnum = 4;
+}
+
+
+
+////////////////////////////////////////
+/// Summary for Commands & Responses
+////////////////////////////////////////
+// UPS's commands
+message UtoACommands { 
+    repeated UPackageQuery packageQueries = 1;
+    optional UDisconnect disconnect = 2;
+    optional UDisconnectWorld disconnectWorld = 3;
+    optional UConnectWorld connectWorld = 4;
+    repeated UAccountPackageQuery uAccountPackageQueries = 5;
+    repeated UDisconnectAccount disconnectAccounts = 6;
+    repeated UDisconnectPackage disconnectPackages = 7;
+}
+
+// Amazon's responses
+message AtoUResponses {
+    repeated int64 acks = 1;
+    repeated APackageDetail packageDetails = 2;                   // reply 1
+    repeated AAccountPackageDetail aAccountPackageDetails = 3;    // reply 5
+}
