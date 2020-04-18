@@ -1,11 +1,18 @@
 import world_amazon_pb2
 import world_ups_pb2
+import AtoU_pb2
 import threading
 import psycopg2
 import socket
 from google.protobuf.internal.decoder import _DecodeVarint32
 from google.protobuf.internal.encoder import _VarintEncoder
 from google.protobuf.internal.encoder import _VarintBytes
+
+
+World_address = ("vcm-12360.vm.duke.edu", 23456)
+Ups_address = ("vcm-12360.vm.duke.edu", xxxx)
+
+
 
 
 #send message
@@ -28,8 +35,14 @@ def recv_msg(message_type, socket):
     whole_message = socket.recv(msg_len)
     message = message_type()
     message.ParseFromString(whole_message)
-    print("The response message is: ", message)
+    print("The response message is:")
+    print(message)
     return message
+
+#give a address, open a socket
+def create_socket(address):
+    test_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    test_socket.connect(address)
 
 #connect to world
 def connect_world(socket, worldID):
@@ -39,9 +52,21 @@ def connect_world(socket, worldID):
     send_msg(connect_msg,socket)
     response = recv_msg(world_amazon_pb2.AConnected, socket)
     if response.result == "connected!":
-        print("Connect to world:" + str(response.worldid) + " succeed!")
+        print("Amazon Connect to world:" + str(response.worldid) + " succeed!")
     else:
-        print("Connect to world:" + str(response.worldid) + " fails!")
+        print("Amazon Connect to world:" + str(response.worldid) + " fails!")
+
+
+#send message from amazon to ups and receive response
+def AMAZON_to_UPS(message):
+    UPS_socket = create_socket(Ups_address)
+    send_msg(message, UPS_socket)
+    response = recv_msg(AtoU_pb2.UtoAResponses, UPS_socket)
+    UPS_socket.close()
+    return response
+
+
+
         
 #Ups connect to world(only for test)
 def connect_worldUps(socket, worldID):

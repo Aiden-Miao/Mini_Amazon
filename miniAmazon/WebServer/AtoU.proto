@@ -1,4 +1,12 @@
 syntax = "proto2";
+
+
+message UDeliveryLocation{
+  required int64 packageid = 1;
+  required int32 x = 2;
+  required int32 y = 3;
+}
+
 ///////////////////////////////////////////////////////////////////////
 ///  AtoU_1: ask UPS which worldid(s) to connect when first connected
 ///////////////////////////////////////////////////////////////////////
@@ -169,11 +177,11 @@ message AtoUCommands {
 // UPS's responses
 message UtoAResponses {
     repeated int64 acks = 1;
-    optional UInitialWorldid initialWorldid = 2;            // reply 1
-    repeated UTruckReady truckReadies = 3;                  // reply 2   
-    optional UWorldidSummaryReply worldidSummaryReply = 4;  // reply 6
-    optional UMadeWorld madeWorld = 5;                      // reply 8
-    repeated UAccountConnectionResult = 6;                  // reply 9
-    repeated UOrderConnectionResult = 7;                    // reply 10
-    repeated UPackageCoord packageCoords = 8;               // reply 13 
+    optional UInitialWorldid initialWorldid = 2;                                    // reply 1
+    repeated UTruckReady truckReadies = 3;                                          // reply 2   
+    optional UWorldidSummaryReply worldidSummaryReply = 4;                          // reply 6
+    optional UMadeWorld madeWorld = 5;                                              // reply 8
+    repeated UAccountConnectionResult accountconnectionresult = 6;                  // reply 9
+    repeated UOrderConnectionResult orderconnectionresult = 7;                      // reply 10
+    repeated UPackageCoord packageCoords = 8;                                       // reply 13 
 }
