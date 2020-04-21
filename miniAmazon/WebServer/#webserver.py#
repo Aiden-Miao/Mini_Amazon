@@ -101,7 +101,13 @@ def init_world():
 """
 def buy_on_website():
     print("enter buy on website")
+    try:
+        cur = conn.cursor()
+        cur.execute("")
 
+
+
+        
 #main function. used to test
 def main():
     #amazon first creates the socket,then UPS connect to it. UPS connect to world then send worldid to amazon

@@ -19,56 +19,11 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='UtoA.proto',
   package='',
   syntax='proto2',
-  serialized_pb=_b('\n\nUtoA.proto\":\n\x08\x41Product\x12\n\n\x02id\x18\x01 \x02(\x03\x12\x13\n\x0b\x64\x65scription\x18\x02 \x02(\t\x12\r\n\x05\x63ount\x18\x03 \x02(\x05\"C\n\rUPackageQuery\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\"N\n\x0e\x41PackageDetail\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x19\n\x06things\x18\x02 \x03(\x0b\x32\t.AProduct\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"\x1d\n\x0bUDisconnect\x12\x0e\n\x06seqnum\x18\x01 \x02(\x03\"3\n\x10UDisconnectWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"0\n\rUConnectWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"_\n\x14UAccountPackageQuery\x12\x12\n\naAccountid\x18\x01 \x02(\x03\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"K\n\x15\x41\x41\x63\x63ountPackageDetail\x12\x11\n\tpackageid\x18\x01 \x03(\x03\x12\x0f\n\x07worldid\x18\x02 \x02(\x03\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"]\n\x12UDisconnectAccount\x12\x12\n\naAccountid\x18\x01 \x03(\x03\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"\\\n\x12UDisconnectPackage\x12\x11\n\tpackageid\x18\x01 \x03(\x03\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"\xc3\x02\n\x0cUtoACommands\x12&\n\x0epackageQueries\x18\x01 \x03(\x0b\x32\x0e.UPackageQuery\x12 \n\ndisconnect\x18\x02 \x01(\x0b\x32\x0c.UDisconnect\x12*\n\x0f\x64isconnectWorld\x18\x03 \x01(\x0b\x32\x11.UDisconnectWorld\x12$\n\x0c\x63onnectWorld\x18\x04 \x01(\x0b\x32\x0e.UConnectWorld\x12\x35\n\x16uAccountPackageQueries\x18\x05 \x03(\x0b\x32\x15.UAccountPackageQuery\x12/\n\x12\x64isconnectAccounts\x18\x06 \x03(\x0b\x32\x13.UDisconnectAccount\x12/\n\x12\x64isconnectPackages\x18\x07 \x03(\x0b\x32\x13.UDisconnectPackage\"~\n\rAtoUResponses\x12\x0c\n\x04\x61\x63ks\x18\x01 \x03(\x03\x12\'\n\x0epackageDetails\x18\x02 \x03(\x0b\x32\x0f.APackageDetail\x12\x36\n\x16\x61\x41\x63\x63ountPackageDetails\x18\x03 \x03(\x0b\x32\x16.AAccountPackageDetail')
+  serialized_pb=_b('\n\nUtoA.proto\"C\n\rUPackageQuery\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\"j\n\x0e\x41PackageDetail\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x11\n\tproductid\x18\x02 \x02(\x03\x12\x13\n\x0b\x64\x65scription\x18\x03 \x02(\t\x12\r\n\x05\x63ount\x18\x04 \x02(\x05\x12\x0e\n\x06seqnum\x18\x05 \x02(\x03\"\x1d\n\x0bUDisconnect\x12\x0e\n\x06seqnum\x18\x01 \x02(\x03\"3\n\x10UDisconnectWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"0\n\rUConnectWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"_\n\x14UAccountPackageQuery\x12\x12\n\naAccountid\x18\x01 \x02(\x03\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"K\n\x15\x41\x41\x63\x63ountPackageDetail\x12\x11\n\tpackageid\x18\x01 \x03(\x03\x12\x0f\n\x07worldid\x18\x02 \x02(\x03\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"]\n\x12UDisconnectAccount\x12\x12\n\naAccountid\x18\x01 \x03(\x03\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"\\\n\x12UDisconnectPackage\x12\x11\n\tpackageid\x18\x01 \x03(\x03\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"\xd1\x02\n\x0cUtoACommands\x12\x0c\n\x04\x61\x63ks\x18\x01 \x03(\x03\x12&\n\x0epackageQueries\x18\x02 \x03(\x0b\x32\x0e.UPackageQuery\x12 \n\ndisconnect\x18\x03 \x01(\x0b\x32\x0c.UDisconnect\x12*\n\x0f\x64isconnectWorld\x18\x04 \x01(\x0b\x32\x11.UDisconnectWorld\x12$\n\x0c\x63onnectWorld\x18\x05 \x01(\x0b\x32\x0e.UConnectWorld\x12\x35\n\x16uAccountPackageQueries\x18\x06 \x03(\x0b\x32\x15.UAccountPackageQuery\x12/\n\x12\x64isconnectAccounts\x18\x07 \x03(\x0b\x32\x13.UDisconnectAccount\x12/\n\x12\x64isconnectPackages\x18\x08 \x03(\x0b\x32\x13.UDisconnectPackage\"~\n\rAtoUResponses\x12\x0c\n\x04\x61\x63ks\x18\x01 \x03(\x03\x12\'\n\x0epackageDetails\x18\x02 \x03(\x0b\x32\x0f.APackageDetail\x12\x36\n\x16\x61\x41\x63\x63ountPackageDetails\x18\x03 \x03(\x0b\x32\x16.AAccountPackageDetail')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
-
-
-_APRODUCT = _descriptor.Descriptor(
-  name='AProduct',
-  full_name='AProduct',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='id', full_name='AProduct.id', index=0,
-      number=1, type=3, cpp_type=2, label=2,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='AProduct.description', index=1,
-      number=2, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='count', full_name='AProduct.count', index=2,
-      number=3, type=5, cpp_type=1, label=2,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=14,
-  serialized_end=72,
-)
 
 
 _UPACKAGEQUERY = _descriptor.Descriptor(
@@ -111,8 +66,8 @@ _UPACKAGEQUERY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=74,
-  serialized_end=141,
+  serialized_start=14,
+  serialized_end=81,
 )
 
 
@@ -131,15 +86,29 @@ _APACKAGEDETAIL = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='things', full_name='APackageDetail.things', index=1,
-      number=2, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
+      name='productid', full_name='APackageDetail.productid', index=1,
+      number=2, type=3, cpp_type=2, label=2,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='seqnum', full_name='APackageDetail.seqnum', index=2,
-      number=3, type=3, cpp_type=2, label=2,
+      name='description', full_name='APackageDetail.description', index=2,
+      number=3, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='count', full_name='APackageDetail.count', index=3,
+      number=4, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='seqnum', full_name='APackageDetail.seqnum', index=4,
+      number=5, type=3, cpp_type=2, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -156,8 +125,8 @@ _APACKAGEDETAIL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=143,
-  serialized_end=221,
+  serialized_start=83,
+  serialized_end=189,
 )
 
 
@@ -187,8 +156,8 @@ _UDISCONNECT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=223,
-  serialized_end=252,
+  serialized_start=191,
+  serialized_end=220,
 )
 
 
@@ -225,8 +194,8 @@ _UDISCONNECTWORLD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=254,
-  serialized_end=305,
+  serialized_start=222,
+  serialized_end=273,
 )
 
 
@@ -263,8 +232,8 @@ _UCONNECTWORLD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=307,
-  serialized_end=355,
+  serialized_start=275,
+  serialized_end=323,
 )
 
 
@@ -315,8 +284,8 @@ _UACCOUNTPACKAGEQUERY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=357,
-  serialized_end=452,
+  serialized_start=325,
+  serialized_end=420,
 )
 
 
@@ -360,8 +329,8 @@ _AACCOUNTPACKAGEDETAIL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=454,
-  serialized_end=529,
+  serialized_start=422,
+  serialized_end=497,
 )
 
 
@@ -412,8 +381,8 @@ _UDISCONNECTACCOUNT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=531,
-  serialized_end=624,
+  serialized_start=499,
+  serialized_end=592,
 )
 
 
@@ -464,8 +433,8 @@ _UDISCONNECTPACKAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=626,
-  serialized_end=718,
+  serialized_start=594,
+  serialized_end=686,
 )
 
 
@@ -477,50 +446,57 @@ _UTOACOMMANDS = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='packageQueries', full_name='UtoACommands.packageQueries', index=0,
-      number=1, type=11, cpp_type=10, label=3,
+      name='acks', full_name='UtoACommands.acks', index=0,
+      number=1, type=3, cpp_type=2, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='disconnect', full_name='UtoACommands.disconnect', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='packageQueries', full_name='UtoACommands.packageQueries', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='disconnectWorld', full_name='UtoACommands.disconnectWorld', index=2,
+      name='disconnect', full_name='UtoACommands.disconnect', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='connectWorld', full_name='UtoACommands.connectWorld', index=3,
+      name='disconnectWorld', full_name='UtoACommands.disconnectWorld', index=3,
       number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='uAccountPackageQueries', full_name='UtoACommands.uAccountPackageQueries', index=4,
-      number=5, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
+      name='connectWorld', full_name='UtoACommands.connectWorld', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='disconnectAccounts', full_name='UtoACommands.disconnectAccounts', index=5,
+      name='uAccountPackageQueries', full_name='UtoACommands.uAccountPackageQueries', index=5,
       number=6, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='disconnectPackages', full_name='UtoACommands.disconnectPackages', index=6,
+      name='disconnectAccounts', full_name='UtoACommands.disconnectAccounts', index=6,
       number=7, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='disconnectPackages', full_name='UtoACommands.disconnectPackages', index=7,
+      number=8, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -537,8 +513,8 @@ _UTOACOMMANDS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=721,
-  serialized_end=1044,
+  serialized_start=689,
+  serialized_end=1026,
 )
 
 
@@ -582,11 +558,10 @@ _ATOURESPONSES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1046,
-  serialized_end=1172,
+  serialized_start=1028,
+  serialized_end=1154,
 )
 
-_APACKAGEDETAIL.fields_by_name['things'].message_type = _APRODUCT
 _UTOACOMMANDS.fields_by_name['packageQueries'].message_type = _UPACKAGEQUERY
 _UTOACOMMANDS.fields_by_name['disconnect'].message_type = _UDISCONNECT
 _UTOACOMMANDS.fields_by_name['disconnectWorld'].message_type = _UDISCONNECTWORLD
@@ -596,7 +571,6 @@ _UTOACOMMANDS.fields_by_name['disconnectAccounts'].message_type = _UDISCONNECTAC
 _UTOACOMMANDS.fields_by_name['disconnectPackages'].message_type = _UDISCONNECTPACKAGE
 _ATOURESPONSES.fields_by_name['packageDetails'].message_type = _APACKAGEDETAIL
 _ATOURESPONSES.fields_by_name['aAccountPackageDetails'].message_type = _AACCOUNTPACKAGEDETAIL
-DESCRIPTOR.message_types_by_name['AProduct'] = _APRODUCT
 DESCRIPTOR.message_types_by_name['UPackageQuery'] = _UPACKAGEQUERY
 DESCRIPTOR.message_types_by_name['APackageDetail'] = _APACKAGEDETAIL
 DESCRIPTOR.message_types_by_name['UDisconnect'] = _UDISCONNECT
@@ -608,13 +582,6 @@ DESCRIPTOR.message_types_by_name['UDisconnectAccount'] = _UDISCONNECTACCOUNT
 DESCRIPTOR.message_types_by_name['UDisconnectPackage'] = _UDISCONNECTPACKAGE
 DESCRIPTOR.message_types_by_name['UtoACommands'] = _UTOACOMMANDS
 DESCRIPTOR.message_types_by_name['AtoUResponses'] = _ATOURESPONSES
-
-AProduct = _reflection.GeneratedProtocolMessageType('AProduct', (_message.Message,), dict(
-  DESCRIPTOR = _APRODUCT,
-  __module__ = 'UtoA_pb2'
-  # @@protoc_insertion_point(class_scope:AProduct)
-  ))
-_sym_db.RegisterMessage(AProduct)
 
 UPackageQuery = _reflection.GeneratedProtocolMessageType('UPackageQuery', (_message.Message,), dict(
   DESCRIPTOR = _UPACKAGEQUERY,

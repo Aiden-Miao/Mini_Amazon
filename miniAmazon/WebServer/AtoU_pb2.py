@@ -19,56 +19,11 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='AtoU.proto',
   package='',
   syntax='proto2',
-  serialized_pb=_b('\n\nAtoU.proto\"<\n\x11UDeliveryLocation\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\t\n\x01x\x18\x02 \x02(\x05\x12\t\n\x01y\x18\x03 \x02(\x05\"!\n\x0f\x41InitialWorldid\x12\x0e\n\x06seqnum\x18\x01 \x02(\x03\"2\n\x0fUInitialWorldid\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\":\n\tAGetTruck\x12\x0c\n\x04whid\x18\x01 \x02(\x05\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\".\n\x0bUTruckReady\x12\x0f\n\x07truckid\x18\x01 \x02(\x05\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"b\n\x08\x41\x44\x65liver\x12\x0f\n\x07truckid\x18\x01 \x02(\x05\x12$\n\x08packages\x18\x02 \x03(\x0b\x32\x12.UDeliveryLocation\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\x12\x0f\n\x07worldid\x18\x04 \x02(\x03\"\x1d\n\x0b\x41\x44isconnect\x12\x0e\n\x06seqnum\x18\x01 \x02(\x03\"0\n\rAConnectWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"&\n\x14\x41WorldidSummaryQuery\x12\x0e\n\x06seqnum\x18\x01 \x02(\x03\"7\n\x14UWorldidSummaryReply\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"3\n\x10\x41\x44isconnectWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\",\n\nAMakeWorld\x12\x0e\n\x06\x61mount\x18\x01 \x02(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"-\n\nUMadeWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"_\n\x12\x41\x41\x63\x63ountConnection\x12\x12\n\naAccountid\x18\x01 \x02(\x03\x12\x14\n\x0cuAccountName\x18\x02 \x02(\t\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"V\n\x18UAccountConnectionResult\x12\x16\n\x0euAccountExists\x18\x01 \x02(\x08\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"\\\n\x10\x41OrderConnection\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x14\n\x0cuAccountName\x18\x02 \x02(\t\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"T\n\x16UOrderConnectionResult\x12\x16\n\x0euAccountExists\x18\x01 \x02(\x08\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"]\n\x12\x41\x44isconnectAccount\x12\x12\n\naAccountid\x18\x01 \x02(\x03\x12\x12\n\nuAccountid\x18\x02 \x03(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"\\\n\x12\x41\x44isconnectPackage\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x12\n\nuAccountid\x18\x02 \x03(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"E\n\x0f\x41WhereIsPackage\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x0f\n\x07worldid\x18\x02 \x02(\x03\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"5\n\rUPackageCoord\x12\t\n\x01x\x18\x01 \x02(\x05\x12\t\n\x01y\x18\x02 \x02(\x05\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"\xa7\x04\n\x0c\x41toUCommands\x12(\n\x0einitialWorldid\x18\x01 \x01(\x0b\x32\x10.AInitialWorldid\x12\x1d\n\tgetTrucks\x18\x02 \x03(\x0b\x32\n.AGetTruck\x12\x1b\n\x08\x64\x65livers\x18\x03 \x03(\x0b\x32\t.ADeliver\x12 \n\ndisconnect\x18\x04 \x01(\x0b\x32\x0c.ADisconnect\x12$\n\x0c\x63onnectWorld\x18\x05 \x01(\x0b\x32\x0e.AConnectWorld\x12\x32\n\x13worldidSummaryQuery\x18\x06 \x01(\x0b\x32\x15.AWorldidSummaryQuery\x12*\n\x0f\x64isconnectWorld\x18\x07 \x01(\x0b\x32\x11.ADisconnectWorld\x12\x1e\n\tmakeWorld\x18\x08 \x01(\x0b\x32\x0b.AMakeWorld\x12/\n\x12\x61\x63\x63ountConnections\x18\t \x03(\x0b\x32\x13.AAccountConnection\x12+\n\x10orderConnections\x18\n \x03(\x0b\x32\x11.AOrderConnection\x12/\n\x12\x64isconnectAccounts\x18\x0b \x03(\x0b\x32\x13.ADisconnectAccount\x12/\n\x12\x64isconnectPackages\x18\x0c \x03(\x0b\x32\x13.ADisconnectPackage\x12)\n\x0fwhereIsPackages\x18\r \x03(\x0b\x32\x10.AWhereIsPackage\"\xda\x02\n\rUtoAResponses\x12\x0c\n\x04\x61\x63ks\x18\x01 \x03(\x03\x12(\n\x0einitialWorldid\x18\x02 \x01(\x0b\x32\x10.UInitialWorldid\x12\"\n\x0ctruckReadies\x18\x03 \x03(\x0b\x32\x0c.UTruckReady\x12\x32\n\x13worldidSummaryReply\x18\x04 \x01(\x0b\x32\x15.UWorldidSummaryReply\x12\x1e\n\tmadeWorld\x18\x05 \x01(\x0b\x32\x0b.UMadeWorld\x12:\n\x17\x61\x63\x63ountconnectionresult\x18\x06 \x03(\x0b\x32\x19.UAccountConnectionResult\x12\x36\n\x15orderconnectionresult\x18\x07 \x03(\x0b\x32\x17.UOrderConnectionResult\x12%\n\rpackageCoords\x18\x08 \x03(\x0b\x32\x0e.UPackageCoord')
+  serialized_pb=_b('\n\nAtoU.proto\"!\n\x0f\x41InitialWorldid\x12\x0e\n\x06seqnum\x18\x01 \x02(\x03\"2\n\x0fUInitialWorldid\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\":\n\tAGetTruck\x12\x0c\n\x04whid\x18\x01 \x02(\x05\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\".\n\x0bUTruckReady\x12\x0f\n\x07truckid\x18\x01 \x02(\x05\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"e\n\x08\x41\x44\x65liver\x12\x0f\n\x07truckid\x18\x01 \x02(\x05\x12\x11\n\tpackageid\x18\x02 \x02(\x03\x12\t\n\x01x\x18\x03 \x02(\x05\x12\t\n\x01y\x18\x04 \x02(\x05\x12\x0e\n\x06seqnum\x18\x05 \x02(\x03\x12\x0f\n\x07worldid\x18\x06 \x02(\x03\"\x1d\n\x0b\x41\x44isconnect\x12\x0e\n\x06seqnum\x18\x01 \x02(\x03\"0\n\rAConnectWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"&\n\x14\x41WorldidSummaryQuery\x12\x0e\n\x06seqnum\x18\x01 \x02(\x03\"7\n\x14UWorldidSummaryReply\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"3\n\x10\x41\x44isconnectWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\",\n\nAMakeWorld\x12\x0e\n\x06\x61mount\x18\x01 \x02(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"-\n\nUMadeWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"_\n\x12\x41\x41\x63\x63ountConnection\x12\x12\n\naAccountid\x18\x01 \x02(\x03\x12\x14\n\x0cuAccountName\x18\x02 \x02(\t\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"V\n\x18UAccountConnectionResult\x12\x16\n\x0euAccountExists\x18\x01 \x02(\x08\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"\\\n\x10\x41OrderConnection\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x14\n\x0cuAccountName\x18\x02 \x02(\t\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"T\n\x16UOrderConnectionResult\x12\x16\n\x0euAccountExists\x18\x01 \x02(\x08\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"]\n\x12\x41\x44isconnectAccount\x12\x12\n\naAccountid\x18\x01 \x02(\x03\x12\x12\n\nuAccountid\x18\x02 \x03(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"\\\n\x12\x41\x44isconnectPackage\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x12\n\nuAccountid\x18\x02 \x03(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"E\n\x0f\x41WhereIsPackage\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x0f\n\x07worldid\x18\x02 \x02(\x03\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"5\n\rUPackageCoord\x12\t\n\x01x\x18\x01 \x02(\x05\x12\t\n\x01y\x18\x02 \x02(\x05\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"\xb5\x04\n\x0c\x41toUCommands\x12\x0c\n\x04\x61\x63ks\x18\x01 \x03(\x03\x12(\n\x0einitialWorldid\x18\x02 \x01(\x0b\x32\x10.AInitialWorldid\x12\x1d\n\tgetTrucks\x18\x03 \x03(\x0b\x32\n.AGetTruck\x12\x1b\n\x08\x64\x65livers\x18\x04 \x03(\x0b\x32\t.ADeliver\x12 \n\ndisconnect\x18\x05 \x01(\x0b\x32\x0c.ADisconnect\x12$\n\x0c\x63onnectWorld\x18\x06 \x01(\x0b\x32\x0e.AConnectWorld\x12\x32\n\x13worldidSummaryQuery\x18\x07 \x01(\x0b\x32\x15.AWorldidSummaryQuery\x12*\n\x0f\x64isconnectWorld\x18\x08 \x01(\x0b\x32\x11.ADisconnectWorld\x12\x1e\n\tmakeWorld\x18\t \x01(\x0b\x32\x0b.AMakeWorld\x12/\n\x12\x61\x63\x63ountConnections\x18\n \x03(\x0b\x32\x13.AAccountConnection\x12+\n\x10orderConnections\x18\x0b \x03(\x0b\x32\x11.AOrderConnection\x12/\n\x12\x64isconnectAccounts\x18\x0c \x03(\x0b\x32\x13.ADisconnectAccount\x12/\n\x12\x64isconnectPackages\x18\r \x03(\x0b\x32\x13.ADisconnectPackage\x12)\n\x0fwhereIsPackages\x18\x0e \x03(\x0b\x32\x10.AWhereIsPackage\"\xda\x02\n\rUtoAResponses\x12\x0c\n\x04\x61\x63ks\x18\x01 \x03(\x03\x12(\n\x0einitialWorldid\x18\x02 \x01(\x0b\x32\x10.UInitialWorldid\x12\"\n\x0ctruckReadies\x18\x03 \x03(\x0b\x32\x0c.UTruckReady\x12\x32\n\x13worldidSummaryReply\x18\x04 \x01(\x0b\x32\x15.UWorldidSummaryReply\x12\x1e\n\tmadeWorld\x18\x05 \x01(\x0b\x32\x0b.UMadeWorld\x12:\n\x17\x61\x63\x63ountconnectionresult\x18\x06 \x03(\x0b\x32\x19.UAccountConnectionResult\x12\x36\n\x15orderconnectionresult\x18\x07 \x03(\x0b\x32\x17.UOrderConnectionResult\x12%\n\rpackageCoords\x18\x08 \x03(\x0b\x32\x0e.UPackageCoord')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
-
-
-_UDELIVERYLOCATION = _descriptor.Descriptor(
-  name='UDeliveryLocation',
-  full_name='UDeliveryLocation',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='packageid', full_name='UDeliveryLocation.packageid', index=0,
-      number=1, type=3, cpp_type=2, label=2,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='x', full_name='UDeliveryLocation.x', index=1,
-      number=2, type=5, cpp_type=1, label=2,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='y', full_name='UDeliveryLocation.y', index=2,
-      number=3, type=5, cpp_type=1, label=2,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=14,
-  serialized_end=74,
-)
 
 
 _AINITIALWORLDID = _descriptor.Descriptor(
@@ -97,8 +52,8 @@ _AINITIALWORLDID = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=76,
-  serialized_end=109,
+  serialized_start=14,
+  serialized_end=47,
 )
 
 
@@ -135,8 +90,8 @@ _UINITIALWORLDID = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=111,
-  serialized_end=161,
+  serialized_start=49,
+  serialized_end=99,
 )
 
 
@@ -180,8 +135,8 @@ _AGETTRUCK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=163,
-  serialized_end=221,
+  serialized_start=101,
+  serialized_end=159,
 )
 
 
@@ -218,8 +173,8 @@ _UTRUCKREADY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=223,
-  serialized_end=269,
+  serialized_start=161,
+  serialized_end=207,
 )
 
 
@@ -238,22 +193,36 @@ _ADELIVER = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='packages', full_name='ADeliver.packages', index=1,
-      number=2, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='seqnum', full_name='ADeliver.seqnum', index=2,
-      number=3, type=3, cpp_type=2, label=2,
+      name='packageid', full_name='ADeliver.packageid', index=1,
+      number=2, type=3, cpp_type=2, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='worldid', full_name='ADeliver.worldid', index=3,
-      number=4, type=3, cpp_type=2, label=2,
+      name='x', full_name='ADeliver.x', index=2,
+      number=3, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='y', full_name='ADeliver.y', index=3,
+      number=4, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='seqnum', full_name='ADeliver.seqnum', index=4,
+      number=5, type=3, cpp_type=2, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='worldid', full_name='ADeliver.worldid', index=5,
+      number=6, type=3, cpp_type=2, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -270,8 +239,8 @@ _ADELIVER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=271,
-  serialized_end=369,
+  serialized_start=209,
+  serialized_end=310,
 )
 
 
@@ -301,8 +270,8 @@ _ADISCONNECT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=371,
-  serialized_end=400,
+  serialized_start=312,
+  serialized_end=341,
 )
 
 
@@ -339,8 +308,8 @@ _ACONNECTWORLD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=402,
-  serialized_end=450,
+  serialized_start=343,
+  serialized_end=391,
 )
 
 
@@ -370,8 +339,8 @@ _AWORLDIDSUMMARYQUERY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=452,
-  serialized_end=490,
+  serialized_start=393,
+  serialized_end=431,
 )
 
 
@@ -408,8 +377,8 @@ _UWORLDIDSUMMARYREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=492,
-  serialized_end=547,
+  serialized_start=433,
+  serialized_end=488,
 )
 
 
@@ -446,8 +415,8 @@ _ADISCONNECTWORLD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=549,
-  serialized_end=600,
+  serialized_start=490,
+  serialized_end=541,
 )
 
 
@@ -484,8 +453,8 @@ _AMAKEWORLD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=602,
-  serialized_end=646,
+  serialized_start=543,
+  serialized_end=587,
 )
 
 
@@ -522,8 +491,8 @@ _UMADEWORLD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=648,
-  serialized_end=693,
+  serialized_start=589,
+  serialized_end=634,
 )
 
 
@@ -574,8 +543,8 @@ _AACCOUNTCONNECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=695,
-  serialized_end=790,
+  serialized_start=636,
+  serialized_end=731,
 )
 
 
@@ -619,8 +588,8 @@ _UACCOUNTCONNECTIONRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=792,
-  serialized_end=878,
+  serialized_start=733,
+  serialized_end=819,
 )
 
 
@@ -671,8 +640,8 @@ _AORDERCONNECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=880,
-  serialized_end=972,
+  serialized_start=821,
+  serialized_end=913,
 )
 
 
@@ -716,8 +685,8 @@ _UORDERCONNECTIONRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=974,
-  serialized_end=1058,
+  serialized_start=915,
+  serialized_end=999,
 )
 
 
@@ -768,8 +737,8 @@ _ADISCONNECTACCOUNT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1060,
-  serialized_end=1153,
+  serialized_start=1001,
+  serialized_end=1094,
 )
 
 
@@ -820,8 +789,8 @@ _ADISCONNECTPACKAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1155,
-  serialized_end=1247,
+  serialized_start=1096,
+  serialized_end=1188,
 )
 
 
@@ -865,8 +834,8 @@ _AWHEREISPACKAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1249,
-  serialized_end=1318,
+  serialized_start=1190,
+  serialized_end=1259,
 )
 
 
@@ -910,8 +879,8 @@ _UPACKAGECOORD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1320,
-  serialized_end=1373,
+  serialized_start=1261,
+  serialized_end=1314,
 )
 
 
@@ -923,92 +892,99 @@ _ATOUCOMMANDS = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='initialWorldid', full_name='AtoUCommands.initialWorldid', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='getTrucks', full_name='AtoUCommands.getTrucks', index=1,
-      number=2, type=11, cpp_type=10, label=3,
+      name='acks', full_name='AtoUCommands.acks', index=0,
+      number=1, type=3, cpp_type=2, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='delivers', full_name='AtoUCommands.delivers', index=2,
+      name='initialWorldid', full_name='AtoUCommands.initialWorldid', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='getTrucks', full_name='AtoUCommands.getTrucks', index=2,
       number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='disconnect', full_name='AtoUCommands.disconnect', index=3,
-      number=4, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='delivers', full_name='AtoUCommands.delivers', index=3,
+      number=4, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='connectWorld', full_name='AtoUCommands.connectWorld', index=4,
+      name='disconnect', full_name='AtoUCommands.disconnect', index=4,
       number=5, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='worldidSummaryQuery', full_name='AtoUCommands.worldidSummaryQuery', index=5,
+      name='connectWorld', full_name='AtoUCommands.connectWorld', index=5,
       number=6, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='disconnectWorld', full_name='AtoUCommands.disconnectWorld', index=6,
+      name='worldidSummaryQuery', full_name='AtoUCommands.worldidSummaryQuery', index=6,
       number=7, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='makeWorld', full_name='AtoUCommands.makeWorld', index=7,
+      name='disconnectWorld', full_name='AtoUCommands.disconnectWorld', index=7,
       number=8, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='accountConnections', full_name='AtoUCommands.accountConnections', index=8,
-      number=9, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
+      name='makeWorld', full_name='AtoUCommands.makeWorld', index=8,
+      number=9, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='orderConnections', full_name='AtoUCommands.orderConnections', index=9,
+      name='accountConnections', full_name='AtoUCommands.accountConnections', index=9,
       number=10, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='disconnectAccounts', full_name='AtoUCommands.disconnectAccounts', index=10,
+      name='orderConnections', full_name='AtoUCommands.orderConnections', index=10,
       number=11, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='disconnectPackages', full_name='AtoUCommands.disconnectPackages', index=11,
+      name='disconnectAccounts', full_name='AtoUCommands.disconnectAccounts', index=11,
       number=12, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='whereIsPackages', full_name='AtoUCommands.whereIsPackages', index=12,
+      name='disconnectPackages', full_name='AtoUCommands.disconnectPackages', index=12,
       number=13, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='whereIsPackages', full_name='AtoUCommands.whereIsPackages', index=13,
+      number=14, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -1025,8 +1001,8 @@ _ATOUCOMMANDS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1376,
-  serialized_end=1927,
+  serialized_start=1317,
+  serialized_end=1882,
 )
 
 
@@ -1105,11 +1081,10 @@ _UTOARESPONSES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1930,
-  serialized_end=2276,
+  serialized_start=1885,
+  serialized_end=2231,
 )
 
-_ADELIVER.fields_by_name['packages'].message_type = _UDELIVERYLOCATION
 _ATOUCOMMANDS.fields_by_name['initialWorldid'].message_type = _AINITIALWORLDID
 _ATOUCOMMANDS.fields_by_name['getTrucks'].message_type = _AGETTRUCK
 _ATOUCOMMANDS.fields_by_name['delivers'].message_type = _ADELIVER
@@ -1130,7 +1105,6 @@ _UTOARESPONSES.fields_by_name['madeWorld'].message_type = _UMADEWORLD
 _UTOARESPONSES.fields_by_name['accountconnectionresult'].message_type = _UACCOUNTCONNECTIONRESULT
 _UTOARESPONSES.fields_by_name['orderconnectionresult'].message_type = _UORDERCONNECTIONRESULT
 _UTOARESPONSES.fields_by_name['packageCoords'].message_type = _UPACKAGECOORD
-DESCRIPTOR.message_types_by_name['UDeliveryLocation'] = _UDELIVERYLOCATION
 DESCRIPTOR.message_types_by_name['AInitialWorldid'] = _AINITIALWORLDID
 DESCRIPTOR.message_types_by_name['UInitialWorldid'] = _UINITIALWORLDID
 DESCRIPTOR.message_types_by_name['AGetTruck'] = _AGETTRUCK
@@ -1153,13 +1127,6 @@ DESCRIPTOR.message_types_by_name['AWhereIsPackage'] = _AWHEREISPACKAGE
 DESCRIPTOR.message_types_by_name['UPackageCoord'] = _UPACKAGECOORD
 DESCRIPTOR.message_types_by_name['AtoUCommands'] = _ATOUCOMMANDS
 DESCRIPTOR.message_types_by_name['UtoAResponses'] = _UTOARESPONSES
-
-UDeliveryLocation = _reflection.GeneratedProtocolMessageType('UDeliveryLocation', (_message.Message,), dict(
-  DESCRIPTOR = _UDELIVERYLOCATION,
-  __module__ = 'AtoU_pb2'
-  # @@protoc_insertion_point(class_scope:UDeliveryLocation)
-  ))
-_sym_db.RegisterMessage(UDeliveryLocation)
 
 AInitialWorldid = _reflection.GeneratedProtocolMessageType('AInitialWorldid', (_message.Message,), dict(
   DESCRIPTOR = _AINITIALWORLDID,

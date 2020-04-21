@@ -1,13 +1,8 @@
 syntax = "proto2";
+
 /////////////////////////////////////////
 /// UtoA_1: ask what's inside in a package
 /////////////////////////////////////////
-message AProduct{
-  required int64 id = 1;
-  required string description = 2;
-  required int32 count = 3;
-}
-
 message UPackageQuery {
     required int64 packageid = 1;
     required int64 seqnum = 2;
@@ -15,8 +10,10 @@ message UPackageQuery {
 }
 message APackageDetail {
     required int64 packageid = 1;
-    repeated AProduct things = 2;   // Type "AProduct" is defined in "world_amazon.proto"
-    required int64 seqnum = 3;
+    required int64 productid = 2;
+    required string description = 3;
+    required int32 count = 4;
+    required int64 seqnum = 5;
 }
 
 ////////////////////////////////////////////////////////
@@ -85,13 +82,14 @@ message UDisconnectPackage {
 ////////////////////////////////////////
 // UPS's commands
 message UtoACommands { 
-    repeated UPackageQuery packageQueries = 1;
-    optional UDisconnect disconnect = 2;
-    optional UDisconnectWorld disconnectWorld = 3;
-    optional UConnectWorld connectWorld = 4;
-    repeated UAccountPackageQuery uAccountPackageQueries = 5;
-    repeated UDisconnectAccount disconnectAccounts = 6;
-    repeated UDisconnectPackage disconnectPackages = 7;
+    repeated int64 acks = 1;
+    repeated UPackageQuery packageQueries = 2;
+    optional UDisconnect disconnect = 3;
+    optional UDisconnectWorld disconnectWorld = 4;
+    optional UConnectWorld connectWorld = 5;
+    repeated UAccountPackageQuery uAccountPackageQueries = 6;
+    repeated UDisconnectAccount disconnectAccounts = 7;
+    repeated UDisconnectPackage disconnectPackages = 8;
 }
 
 // Amazon's responses

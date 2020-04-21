@@ -1,12 +1,5 @@
 syntax = "proto2";
 
-
-message UDeliveryLocation{
-  required int64 packageid = 1;
-  required int32 x = 2;
-  required int32 y = 3;
-}
-
 ///////////////////////////////////////////////////////////////////////
 ///  AtoU_1: ask UPS which worldid(s) to connect when first connected
 ///////////////////////////////////////////////////////////////////////
@@ -37,9 +30,11 @@ message UTruckReady {
 ///////////////////////////////////////
 message ADeliver {
     required int32 truckid = 1;
-    repeated UDeliveryLocation packages = 2;    // Type "UDeliveryLocation" is defined in "world_ups.proto"
-    required int64 seqnum = 3; 
-    required int64 worldid = 4;
+    required int64 packageid = 2;
+    required int32 x = 3;
+    required int32 y = 4;
+    required int64 seqnum = 5; 
+    required int64 worldid = 6;
 }
 
 ////////////////////////////////////////////////////
@@ -159,19 +154,20 @@ message UPackageCoord {
 
 // Amazon's commands
 message AtoUCommands {
-    optional AInitialWorldid initialWorldid = 1;    
-    repeated AGetTruck getTrucks = 2;  
-    repeated ADeliver delivers = 3;
-    optional ADisconnect disconnect = 4;
-    optional AConnectWorld connectWorld = 5;
-    optional AWorldidSummaryQuery worldidSummaryQuery = 6;
-    optional ADisconnectWorld disconnectWorld = 7;
-    optional AMakeWorld makeWorld = 8;
-    repeated AAccountConnection accountConnections = 9;
-    repeated AOrderConnection orderConnections = 10;
-    repeated ADisconnectAccount disconnectAccounts = 11;
-    repeated ADisconnectPackage disconnectPackages = 12;
-    repeated AWhereIsPackage whereIsPackages = 13;
+    repeated int64 acks = 1;
+    optional AInitialWorldid initialWorldid = 2;    
+    repeated AGetTruck getTrucks = 3;  
+    repeated ADeliver delivers = 4;
+    optional ADisconnect disconnect = 5;
+    optional AConnectWorld connectWorld = 6;
+    optional AWorldidSummaryQuery worldidSummaryQuery = 7;
+    optional ADisconnectWorld disconnectWorld = 8;
+    optional AMakeWorld makeWorld = 9;
+    repeated AAccountConnection accountConnections = 10;
+    repeated AOrderConnection orderConnections = 11;
+    repeated ADisconnectAccount disconnectAccounts = 12;
+    repeated ADisconnectPackage disconnectPackages = 13;
+    repeated AWhereIsPackage whereIsPackages = 14;
 }
 
 // UPS's responses
@@ -183,5 +179,5 @@ message UtoAResponses {
     optional UMadeWorld madeWorld = 5;                                              // reply 8
     repeated UAccountConnectionResult accountconnectionresult = 6;                  // reply 9
     repeated UOrderConnectionResult orderconnectionresult = 7;                      // reply 10
-    repeated UPackageCoord packageCoords = 8;                                       // reply 13 
+    repeated UPackageCoord packageCoords = 8;                                       // reply 13  
 }
