@@ -1,0 +1,11 @@
+{% extends "AmazonWeb/base.html" %}
+{% block content %}
+<form method="GET" action="{% url 'search' %}">
+	<input name="q" value="{{request.GET.q}}" placeholder="search..">
+	<button class="btn btn-success" type="submit">
+		Search
+	</button>
+</form>
+  <h1> Search for items </h1> 
+}
+{% endblock content %}
