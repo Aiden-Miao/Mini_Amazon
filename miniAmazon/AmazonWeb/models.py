@@ -29,7 +29,7 @@ class Profile(models.Model):
 
 class Order(models.Model):
     #the fields user generate                                                                                                                                                     
-    create_time = models.DataTimeField()
+    create_time = models.DateTimeField()
     dst_x = models.IntegerField()
     dst_y = models.IntegerField()
     products = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -41,6 +41,6 @@ class Order(models.Model):
     is_processed = models.BooleanField(default=False)
     status = models.TextField(default="packing")
 
-class Truck(model.Model):
-    truck_id = model.IntegerField()
-    warehouse_id = models.ForeignKey(Warehouse)
+class Truck(models.Model):
+    truck_id = models.IntegerField()
+    warehouse_id = models.ForeignKey(Warehouse,on_delete=models.CASCADE)
