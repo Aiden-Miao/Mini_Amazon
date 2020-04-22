@@ -1,4 +1,20 @@
 {% extends "AmazonWeb/base.html" %}
 {% block content %}
-  <h1> Purchase History </h1> 
+	{% if orders %}
+		{% for order in orders %}
+			<article class="media content-section">
+	          <div class="media-body">
+	            <div class="article-metadata">
+	              <a class="mr-2" href="#">{{ order.create_time }}</a>
+	            </div>
+	            <h2><a class="article-title" href="#">{{ order.products.name }}</a></h2>
+	            <p class="article-content">Quantity: {{ order.quantity }}</p>
+	            <p class="article-content">Deliever to: ( {{ order.dst_x }} , {{order.dst_y}} )</p>
+	             <p class="article-content">Status: {{ order.status }}</p>
+	          </div>
+	        </article>
+		{% endfor %}
+	{% else %}
+		<h>You don't have any order yet</h>
+	{% endif %}
 {% endblock content %}

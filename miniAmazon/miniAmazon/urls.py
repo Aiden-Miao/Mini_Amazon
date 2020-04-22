@@ -25,7 +25,9 @@ urlpatterns = [
     path('register/', AmazonWeb_views.register,name='register'),
     path('login/',auth_views.LoginView.as_view(template_name='AmazonWeb/login.html'),name='login'),
     path('logout/',auth_views.LogoutView.as_view(template_name='AmazonWeb/logout.html'),name='logout'),
+    path('profile/',AmazonWeb_views.profile,name='profile'),
     path('history/',AmazonWeb_views.history,name='history'),
-    path('buy/',AmazonWeb_views.history,name='buy'),
-    path('checkstatus/',AmazonWeb_views.history,name='checkstatus'),
+    path('buy/',AmazonWeb_views.buy,name='buy'),
+    path('checkstatus/',AmazonWeb_views.checkstatus,name='checkstatus'),
+    path('search/',AmazonWeb_views.search,name='search'),
 ]

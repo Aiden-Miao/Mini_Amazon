@@ -9,7 +9,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{% static "AmazonWeb/main.css" %}">>
+    <link rel="stylesheet" type="text/css" href="{% static "AmazonWeb/main.css" %}">
     {% if title %}
       <title>Mini Amazon  - {{ title }}</title>
     {% else %}
@@ -40,6 +40,13 @@
     <main role="main" class="container">
       <div class="row">
         <div class="col-md-8">
+          {% if messages %}
+            {% for messeage in messages %}
+              <div class=="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
           {% block content %}{% endblock %}
         </div>
         <div class="col-md-4">
@@ -47,9 +54,10 @@
             <h3>What to do?</h3>
             <p class='text-muted'>
               <ul class="list-group">
-                <li class="list-group-item list-group-item-light" href="{% url 'buy' %}">Buy Product</li>
-                <li class="list-group-item list-group-item-light" href="{% url 'history' %}">History</li>
-                <li class="list-group-item list-group-item-light" href="{% url 'checkstatus' %}">Check Status</li>
+                <li class="list-group-item list-group-item-light"><a href="{% url 'buy' %}">Purchase</a></li>
+                <li class="list-group-item list-group-item-light"><a href="{% url 'history' %}">History</a></li>
+                <li class="list-group-item list-group-item-light"><a href="{% url 'checkstatus' %}">Track</a></li>
+                 <li class="list-group-item list-group-item-light"><a href="{% url 'profile' %}">Profile</a></li>
               </ul>
             </p>
           </div>
