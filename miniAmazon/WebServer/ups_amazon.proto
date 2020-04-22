@@ -15,55 +15,51 @@ message UInitialWorldid {
 ///////////////////////////////////////////////
 ///  AtoU_2: requires a truck for a warehouse
 ///////////////////////////////////////////////
-message AGetTruck {
-    required int32 whid = 1;
-    required int64 seqnum = 2;
-    required int64 worldid = 3;
-}
-message UTruckReady {
-    required int32 truckid = 1;
-    required int32 whid = 2;
-    required int64 seqnum = 3;
-}
 
-///////////////////////////////////////
-/// AtoU_3: truck is loaded, go deliver
-///////////////////////////////////////
-message UPSDeliveryLocation{
-    required int64 packageid = 1;
-    required int32 x = 2;
-    required int32 y = 3;
-}
-message ADeliver {
-    required int32 truckid = 1;
-    repeated UPSDeliveryLocation location = 2;
-    required int64 seqnum = 3; 
-    required int64 worldid = 4;
-}
-
-
-//Query
-/////////////////////////////////////////
-/// UtoA_1: ask what's inside in a package
-/////////////////////////////////////////
-message UPackageQuery {
-    required int64 packageid = 1;
-    required int64 seqnum = 2;
-    required int64 worldid = 3;
-}
 message AmazonProduct{
     required int64 productid = 1;
     required string description = 2;
     required int32 count = 3;
 }
-message APackageDetail {
+
+message AGetTruck {
+    required int32 whid = 1;
+    required int64 packageid = 2;
+    required string uAccountName = 3;
+    required int32 x = 4;
+    required int32 y = 5;
+    repeated AmazonProduct product = 6;
+    required int64 seqnum = 7;
+    required int64 worldid = 8;
+}
+
+message UAccountResult {
     required int64 packageid = 1;
-    repeated AmazonProduct product = 2;
+    required bool uAccountExists = 2;
+    required string uAccountName = 3;
+    required int64 uAccountid = 4;
+    required int64 seqnum = 5;
+}
+
+message UTruckReady {
+    required int32 truckid = 1;
+    required int64 packageid = 2;
     required int64 seqnum = 3;
 }
 
+///////////////////////////////////////
+/// AtoU_3: truck is loaded, go deliver.
+///////////////////////////////////////
+
+message ADeliver {
+    required int32 truckid = 1;
+    required int64 seqnum = 3; 
+    required int64 worldid = 4;
+}
+
+
 //////////////////////////////////////////////////////////////
-/// AtoU_9: associtate an Amazon account with an UPS account
+/// AtoU_4: associtate an Amazon account with an UPS account
 //////////////////////////////////////////////////////////////
 message AAccountConnection {
     required int64 aAccountid = 1;
@@ -72,21 +68,6 @@ message AAccountConnection {
     required int64 seqnum = 4;
 }
 message UAccountConnectionResult {
-    required bool uAccountExists = 1;
-    required int64 uAccountid = 2;
-    required int64 seqnum = 3;
-}
-
-//////////////////////////////////////////////////////////
-/// AtoU_10: associtate a package id with an UPS account
-//////////////////////////////////////////////////////////
-message AOrderConnection {
-    required int64 packageid = 1;
-    required string uAccountName = 2;
-    required int64 worldid = 3;
-    required int64 seqnum = 4;
-}
-message UOrderConnectionResult {
     required bool uAccountExists = 1;
     required int64 uAccountid = 2;
     required int64 seqnum = 3;
@@ -246,10 +227,8 @@ message UMessages {
     optional UInitialWorldid initialWorldid = 2;
     repeated UTruckReady truckReadies = 3;
     //Query
-    repeated UPackageQuery packageQueries = 4;
     repeated UAccountPackageQuery uAccountPackageQueries = 5;
     repeated UAccountConnectionResult accountconnectionresult = 6;   
-    repeated UOrderConnectionResult orderconnectionresult = 7;  
     //Extra Feature
     optional UDisconnect disconnect = 8;
     optional UDisconnectWorld disconnectWorld = 9;
@@ -269,9 +248,7 @@ message AMessages {
     repeated AGetTruck getTrucks = 3;  
     repeated ADeliver delivers = 4;
     //Query
-    repeated APackageDetail packageDetails = 5;           
     repeated AAccountConnection accountConnections = 6;
-    repeated AOrderConnection orderConnections = 7;
     repeated AAccountPackageDetail aAccountPackageDetails = 8;
     //Extra Feature
     optional ADisconnect disconnect = 9;
