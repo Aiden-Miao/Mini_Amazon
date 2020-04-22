@@ -16,7 +16,7 @@ Ups_address = ("0.0.0.0", 34567)
 conn = psycopg2.connect(host = "vcm-12360.vm.duke.edu",database = "postgres", user = "postgres",port = "5433")
 global WORLD_SOCKET
 global Seq
-TOTALL_WHNUM = 3
+TOTALL_WHNUM = 1
 SPEED = 99999
 """
 --------------------basic function------------------
@@ -102,7 +102,7 @@ def send_world_ack(world_response):
     response = world.ACommands()
     response.acks.append(world_response.seqnum)
     send_msg(response, WORLD_SOCKET)
-    
+#deal with arrived products    
 
 #pack the product
 def pack_product(whNum, product):
