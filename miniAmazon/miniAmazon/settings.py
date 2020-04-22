@@ -25,18 +25,21 @@ SECRET_KEY = '9=08o-5^9#e(&k685$gie&hk^_f3ef81p^#^xo(5t6)1525(^#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['vcm-12360.vm.duke.edu','local host']
+ALLOWED_HOSTS = ['vcm-12355.vm.duke.edu','local host']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'AmazonWeb.apps.AmazonwebConfig',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
 ]
 
 MIDDLEWARE = [
@@ -75,7 +78,7 @@ WSGI_APPLICATION = 'miniAmazon.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
@@ -109,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'America/Louisville'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 

@@ -15,8 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth import views as auth_views
+from AmazonWeb import views as AmazonWeb_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('mini_Amazon/', include('AmazonWeb.urls')),
+    path('', include('AmazonWeb.urls')),
+    path('register/', AmazonWeb_views.register,name='register'),
+    path('login/',auth_views.LoginView.as_view(template_name='AmazonWeb/login.html'),name='login'),
+    path('logout/',auth_views.LogoutView.as_view(template_name='AmazonWeb/logout.html'),name='logout'),
+    path('history/',AmazonWeb_views.history,name='history'),
+    path('buy/',AmazonWeb_views.history,name='buy'),
+    path('checkstatus/',AmazonWeb_views.history,name='checkstatus'),
 ]
