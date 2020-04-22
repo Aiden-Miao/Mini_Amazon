@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='ups_amazon.proto',
   package='',
   syntax='proto2',
-  serialized_pb=_b('\n\x10ups_amazon.proto\"!\n\x0f\x41InitialWorldid\x12\x0e\n\x06seqnum\x18\x01 \x02(\x03\"2\n\x0fUInitialWorldid\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\":\n\tAGetTruck\x12\x0c\n\x04whid\x18\x01 \x02(\x05\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\".\n\x0bUTruckReady\x12\x0f\n\x07truckid\x18\x01 \x02(\x05\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\">\n\x13UPSDeliveryLocation\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\t\n\x01x\x18\x02 \x02(\x05\x12\t\n\x01y\x18\x03 \x02(\x05\"d\n\x08\x41\x44\x65liver\x12\x0f\n\x07truckid\x18\x01 \x02(\x05\x12&\n\x08location\x18\x02 \x03(\x0b\x32\x14.UPSDeliveryLocation\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\x12\x0f\n\x07worldid\x18\x04 \x02(\x03\"C\n\rUPackageQuery\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\"F\n\rAmazonProduct\x12\x11\n\tproductid\x18\x01 \x02(\x03\x12\x13\n\x0b\x64\x65scription\x18\x02 \x02(\t\x12\r\n\x05\x63ount\x18\x03 \x02(\x05\"T\n\x0e\x41PackageDetail\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x1f\n\x07product\x18\x02 \x03(\x0b\x32\x0e.AmazonProduct\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"_\n\x12\x41\x41\x63\x63ountConnection\x12\x12\n\naAccountid\x18\x01 \x02(\x03\x12\x14\n\x0cuAccountName\x18\x02 \x02(\t\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"V\n\x18UAccountConnectionResult\x12\x16\n\x0euAccountExists\x18\x01 \x02(\x08\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"\\\n\x10\x41OrderConnection\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x14\n\x0cuAccountName\x18\x02 \x02(\t\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"T\n\x16UOrderConnectionResult\x12\x16\n\x0euAccountExists\x18\x01 \x02(\x08\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"\x1d\n\x0bUDisconnect\x12\x0e\n\x06seqnum\x18\x01 \x02(\x03\"3\n\x10UDisconnectWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"0\n\rUConnectWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"_\n\x14UAccountPackageQuery\x12\x12\n\naAccountid\x18\x01 \x02(\x03\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"K\n\x15\x41\x41\x63\x63ountPackageDetail\x12\x11\n\tpackageid\x18\x01 \x03(\x03\x12\x0f\n\x07worldid\x18\x02 \x02(\x03\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"]\n\x12UDisconnectAccount\x12\x12\n\naAccountid\x18\x01 \x03(\x03\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"\\\n\x12UDisconnectPackage\x12\x11\n\tpackageid\x18\x01 \x03(\x03\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"\x1d\n\x0b\x41\x44isconnect\x12\x0e\n\x06seqnum\x18\x01 \x02(\x03\"0\n\rAConnectWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"&\n\x14\x41WorldidSummaryQuery\x12\x0e\n\x06seqnum\x18\x01 \x02(\x03\"7\n\x14UWorldidSummaryReply\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"3\n\x10\x41\x44isconnectWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\",\n\nAMakeWorld\x12\x0e\n\x06\x61mount\x18\x01 \x02(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"-\n\nUMadeWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"]\n\x12\x41\x44isconnectAccount\x12\x12\n\naAccountid\x18\x01 \x02(\x03\x12\x12\n\nuAccountid\x18\x02 \x03(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"\\\n\x12\x41\x44isconnectPackage\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x12\n\nuAccountid\x18\x02 \x03(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"E\n\x0f\x41WhereIsPackage\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x0f\n\x07worldid\x18\x02 \x02(\x03\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"5\n\rUPackageCoord\x12\t\n\x01x\x18\x01 \x02(\x05\x12\t\n\x01y\x18\x02 \x02(\x05\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"\x8b\x05\n\tUMessages\x12\x0c\n\x04\x61\x63ks\x18\x01 \x03(\x03\x12(\n\x0einitialWorldid\x18\x02 \x01(\x0b\x32\x10.UInitialWorldid\x12\"\n\x0ctruckReadies\x18\x03 \x03(\x0b\x32\x0c.UTruckReady\x12&\n\x0epackageQueries\x18\x04 \x03(\x0b\x32\x0e.UPackageQuery\x12\x35\n\x16uAccountPackageQueries\x18\x05 \x03(\x0b\x32\x15.UAccountPackageQuery\x12:\n\x17\x61\x63\x63ountconnectionresult\x18\x06 \x03(\x0b\x32\x19.UAccountConnectionResult\x12\x36\n\x15orderconnectionresult\x18\x07 \x03(\x0b\x32\x17.UOrderConnectionResult\x12 \n\ndisconnect\x18\x08 \x01(\x0b\x32\x0c.UDisconnect\x12*\n\x0f\x64isconnectWorld\x18\t \x01(\x0b\x32\x11.UDisconnectWorld\x12$\n\x0c\x63onnectWorld\x18\n \x01(\x0b\x32\x0e.UConnectWorld\x12/\n\x12\x64isconnectAccounts\x18\x0b \x03(\x0b\x32\x13.UDisconnectAccount\x12/\n\x12\x64isconnectPackages\x18\x0c \x03(\x0b\x32\x13.UDisconnectPackage\x12\x32\n\x13worldidSummaryReply\x18\r \x01(\x0b\x32\x15.UWorldidSummaryReply\x12\x1e\n\tmadeWorld\x18\x0e \x01(\x0b\x32\x0b.UMadeWorld\x12%\n\rpackageCoords\x18\x0f \x03(\x0b\x32\x0e.UPackageCoord\"\x93\x05\n\tAMessages\x12\x0c\n\x04\x61\x63ks\x18\x01 \x03(\x03\x12(\n\x0einitialWorldid\x18\x02 \x01(\x0b\x32\x10.AInitialWorldid\x12\x1d\n\tgetTrucks\x18\x03 \x03(\x0b\x32\n.AGetTruck\x12\x1b\n\x08\x64\x65livers\x18\x04 \x03(\x0b\x32\t.ADeliver\x12\'\n\x0epackageDetails\x18\x05 \x03(\x0b\x32\x0f.APackageDetail\x12/\n\x12\x61\x63\x63ountConnections\x18\x06 \x03(\x0b\x32\x13.AAccountConnection\x12+\n\x10orderConnections\x18\x07 \x03(\x0b\x32\x11.AOrderConnection\x12\x36\n\x16\x61\x41\x63\x63ountPackageDetails\x18\x08 \x03(\x0b\x32\x16.AAccountPackageDetail\x12 \n\ndisconnect\x18\t \x01(\x0b\x32\x0c.ADisconnect\x12$\n\x0c\x63onnectWorld\x18\n \x01(\x0b\x32\x0e.AConnectWorld\x12\x32\n\x13worldidSummaryQuery\x18\x0b \x01(\x0b\x32\x15.AWorldidSummaryQuery\x12*\n\x0f\x64isconnectWorld\x18\x0c \x01(\x0b\x32\x11.ADisconnectWorld\x12\x1e\n\tmakeWorld\x18\r \x01(\x0b\x32\x0b.AMakeWorld\x12/\n\x12\x64isconnectAccounts\x18\x0e \x03(\x0b\x32\x13.ADisconnectAccount\x12/\n\x12\x64isconnectPackages\x18\x0f \x03(\x0b\x32\x13.ADisconnectPackage\x12)\n\x0fwhereIsPackages\x18\x10 \x03(\x0b\x32\x10.AWhereIsPackage')
+  serialized_pb=_b('\n\x10ups_amazon.proto\"!\n\x0f\x41InitialWorldid\x12\x0e\n\x06seqnum\x18\x01 \x02(\x03\"2\n\x0fUInitialWorldid\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\":\n\tAGetTruck\x12\x0c\n\x04whid\x18\x01 \x02(\x05\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\"<\n\x0bUTruckReady\x12\x0f\n\x07truckid\x18\x01 \x02(\x05\x12\x0c\n\x04whid\x18\x02 \x02(\x05\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\">\n\x13UPSDeliveryLocation\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\t\n\x01x\x18\x02 \x02(\x05\x12\t\n\x01y\x18\x03 \x02(\x05\"d\n\x08\x41\x44\x65liver\x12\x0f\n\x07truckid\x18\x01 \x02(\x05\x12&\n\x08location\x18\x02 \x03(\x0b\x32\x14.UPSDeliveryLocation\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\x12\x0f\n\x07worldid\x18\x04 \x02(\x03\"C\n\rUPackageQuery\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\"F\n\rAmazonProduct\x12\x11\n\tproductid\x18\x01 \x02(\x03\x12\x13\n\x0b\x64\x65scription\x18\x02 \x02(\t\x12\r\n\x05\x63ount\x18\x03 \x02(\x05\"T\n\x0e\x41PackageDetail\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x1f\n\x07product\x18\x02 \x03(\x0b\x32\x0e.AmazonProduct\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"_\n\x12\x41\x41\x63\x63ountConnection\x12\x12\n\naAccountid\x18\x01 \x02(\x03\x12\x14\n\x0cuAccountName\x18\x02 \x02(\t\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"V\n\x18UAccountConnectionResult\x12\x16\n\x0euAccountExists\x18\x01 \x02(\x08\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"\\\n\x10\x41OrderConnection\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x14\n\x0cuAccountName\x18\x02 \x02(\t\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"T\n\x16UOrderConnectionResult\x12\x16\n\x0euAccountExists\x18\x01 \x02(\x08\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"\x1d\n\x0bUDisconnect\x12\x0e\n\x06seqnum\x18\x01 \x02(\x03\"3\n\x10UDisconnectWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"0\n\rUConnectWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"_\n\x14UAccountPackageQuery\x12\x12\n\naAccountid\x18\x01 \x02(\x03\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"K\n\x15\x41\x41\x63\x63ountPackageDetail\x12\x11\n\tpackageid\x18\x01 \x03(\x03\x12\x0f\n\x07worldid\x18\x02 \x02(\x03\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"]\n\x12UDisconnectAccount\x12\x12\n\naAccountid\x18\x01 \x03(\x03\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"\\\n\x12UDisconnectPackage\x12\x11\n\tpackageid\x18\x01 \x03(\x03\x12\x12\n\nuAccountid\x18\x02 \x02(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"\x1d\n\x0b\x41\x44isconnect\x12\x0e\n\x06seqnum\x18\x01 \x02(\x03\"0\n\rAConnectWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"&\n\x14\x41WorldidSummaryQuery\x12\x0e\n\x06seqnum\x18\x01 \x02(\x03\"7\n\x14UWorldidSummaryReply\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"3\n\x10\x41\x44isconnectWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\",\n\nAMakeWorld\x12\x0e\n\x06\x61mount\x18\x01 \x02(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"-\n\nUMadeWorld\x12\x0f\n\x07worldid\x18\x01 \x03(\x03\x12\x0e\n\x06seqnum\x18\x02 \x02(\x03\"]\n\x12\x41\x44isconnectAccount\x12\x12\n\naAccountid\x18\x01 \x02(\x03\x12\x12\n\nuAccountid\x18\x02 \x03(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"\\\n\x12\x41\x44isconnectPackage\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x12\n\nuAccountid\x18\x02 \x03(\x03\x12\x0f\n\x07worldid\x18\x03 \x02(\x03\x12\x0e\n\x06seqnum\x18\x04 \x02(\x03\"E\n\x0f\x41WhereIsPackage\x12\x11\n\tpackageid\x18\x01 \x02(\x03\x12\x0f\n\x07worldid\x18\x02 \x02(\x03\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"5\n\rUPackageCoord\x12\t\n\x01x\x18\x01 \x02(\x05\x12\t\n\x01y\x18\x02 \x02(\x05\x12\x0e\n\x06seqnum\x18\x03 \x02(\x03\"\x8b\x05\n\tUMessages\x12\x0c\n\x04\x61\x63ks\x18\x01 \x03(\x03\x12(\n\x0einitialWorldid\x18\x02 \x01(\x0b\x32\x10.UInitialWorldid\x12\"\n\x0ctruckReadies\x18\x03 \x03(\x0b\x32\x0c.UTruckReady\x12&\n\x0epackageQueries\x18\x04 \x03(\x0b\x32\x0e.UPackageQuery\x12\x35\n\x16uAccountPackageQueries\x18\x05 \x03(\x0b\x32\x15.UAccountPackageQuery\x12:\n\x17\x61\x63\x63ountconnectionresult\x18\x06 \x03(\x0b\x32\x19.UAccountConnectionResult\x12\x36\n\x15orderconnectionresult\x18\x07 \x03(\x0b\x32\x17.UOrderConnectionResult\x12 \n\ndisconnect\x18\x08 \x01(\x0b\x32\x0c.UDisconnect\x12*\n\x0f\x64isconnectWorld\x18\t \x01(\x0b\x32\x11.UDisconnectWorld\x12$\n\x0c\x63onnectWorld\x18\n \x01(\x0b\x32\x0e.UConnectWorld\x12/\n\x12\x64isconnectAccounts\x18\x0b \x03(\x0b\x32\x13.UDisconnectAccount\x12/\n\x12\x64isconnectPackages\x18\x0c \x03(\x0b\x32\x13.UDisconnectPackage\x12\x32\n\x13worldidSummaryReply\x18\r \x01(\x0b\x32\x15.UWorldidSummaryReply\x12\x1e\n\tmadeWorld\x18\x0e \x01(\x0b\x32\x0b.UMadeWorld\x12%\n\rpackageCoords\x18\x0f \x03(\x0b\x32\x0e.UPackageCoord\"\x93\x05\n\tAMessages\x12\x0c\n\x04\x61\x63ks\x18\x01 \x03(\x03\x12(\n\x0einitialWorldid\x18\x02 \x01(\x0b\x32\x10.AInitialWorldid\x12\x1d\n\tgetTrucks\x18\x03 \x03(\x0b\x32\n.AGetTruck\x12\x1b\n\x08\x64\x65livers\x18\x04 \x03(\x0b\x32\t.ADeliver\x12\'\n\x0epackageDetails\x18\x05 \x03(\x0b\x32\x0f.APackageDetail\x12/\n\x12\x61\x63\x63ountConnections\x18\x06 \x03(\x0b\x32\x13.AAccountConnection\x12+\n\x10orderConnections\x18\x07 \x03(\x0b\x32\x11.AOrderConnection\x12\x36\n\x16\x61\x41\x63\x63ountPackageDetails\x18\x08 \x03(\x0b\x32\x16.AAccountPackageDetail\x12 \n\ndisconnect\x18\t \x01(\x0b\x32\x0c.ADisconnect\x12$\n\x0c\x63onnectWorld\x18\n \x01(\x0b\x32\x0e.AConnectWorld\x12\x32\n\x13worldidSummaryQuery\x18\x0b \x01(\x0b\x32\x15.AWorldidSummaryQuery\x12*\n\x0f\x64isconnectWorld\x18\x0c \x01(\x0b\x32\x11.ADisconnectWorld\x12\x1e\n\tmakeWorld\x18\r \x01(\x0b\x32\x0b.AMakeWorld\x12/\n\x12\x64isconnectAccounts\x18\x0e \x03(\x0b\x32\x13.ADisconnectAccount\x12/\n\x12\x64isconnectPackages\x18\x0f \x03(\x0b\x32\x13.ADisconnectPackage\x12)\n\x0fwhereIsPackages\x18\x10 \x03(\x0b\x32\x10.AWhereIsPackage')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -155,8 +155,15 @@ _UTRUCKREADY = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='seqnum', full_name='UTruckReady.seqnum', index=1,
-      number=2, type=3, cpp_type=2, label=2,
+      name='whid', full_name='UTruckReady.whid', index=1,
+      number=2, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='seqnum', full_name='UTruckReady.seqnum', index=2,
+      number=3, type=3, cpp_type=2, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -174,7 +181,7 @@ _UTRUCKREADY = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=167,
-  serialized_end=213,
+  serialized_end=227,
 )
 
 
@@ -218,8 +225,8 @@ _UPSDELIVERYLOCATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=215,
-  serialized_end=277,
+  serialized_start=229,
+  serialized_end=291,
 )
 
 
@@ -270,8 +277,8 @@ _ADELIVER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=279,
-  serialized_end=379,
+  serialized_start=293,
+  serialized_end=393,
 )
 
 
@@ -315,8 +322,8 @@ _UPACKAGEQUERY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=381,
-  serialized_end=448,
+  serialized_start=395,
+  serialized_end=462,
 )
 
 
@@ -360,8 +367,8 @@ _AMAZONPRODUCT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=450,
-  serialized_end=520,
+  serialized_start=464,
+  serialized_end=534,
 )
 
 
@@ -405,8 +412,8 @@ _APACKAGEDETAIL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=522,
-  serialized_end=606,
+  serialized_start=536,
+  serialized_end=620,
 )
 
 
@@ -457,8 +464,8 @@ _AACCOUNTCONNECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=608,
-  serialized_end=703,
+  serialized_start=622,
+  serialized_end=717,
 )
 
 
@@ -502,8 +509,8 @@ _UACCOUNTCONNECTIONRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=705,
-  serialized_end=791,
+  serialized_start=719,
+  serialized_end=805,
 )
 
 
@@ -554,8 +561,8 @@ _AORDERCONNECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=793,
-  serialized_end=885,
+  serialized_start=807,
+  serialized_end=899,
 )
 
 
@@ -599,8 +606,8 @@ _UORDERCONNECTIONRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=887,
-  serialized_end=971,
+  serialized_start=901,
+  serialized_end=985,
 )
 
 
@@ -630,8 +637,8 @@ _UDISCONNECT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=973,
-  serialized_end=1002,
+  serialized_start=987,
+  serialized_end=1016,
 )
 
 
@@ -668,8 +675,8 @@ _UDISCONNECTWORLD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1004,
-  serialized_end=1055,
+  serialized_start=1018,
+  serialized_end=1069,
 )
 
 
@@ -706,8 +713,8 @@ _UCONNECTWORLD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1057,
-  serialized_end=1105,
+  serialized_start=1071,
+  serialized_end=1119,
 )
 
 
@@ -758,8 +765,8 @@ _UACCOUNTPACKAGEQUERY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1107,
-  serialized_end=1202,
+  serialized_start=1121,
+  serialized_end=1216,
 )
 
 
@@ -803,8 +810,8 @@ _AACCOUNTPACKAGEDETAIL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1204,
-  serialized_end=1279,
+  serialized_start=1218,
+  serialized_end=1293,
 )
 
 
@@ -855,8 +862,8 @@ _UDISCONNECTACCOUNT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1281,
-  serialized_end=1374,
+  serialized_start=1295,
+  serialized_end=1388,
 )
 
 
@@ -907,8 +914,8 @@ _UDISCONNECTPACKAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1376,
-  serialized_end=1468,
+  serialized_start=1390,
+  serialized_end=1482,
 )
 
 
@@ -938,8 +945,8 @@ _ADISCONNECT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1470,
-  serialized_end=1499,
+  serialized_start=1484,
+  serialized_end=1513,
 )
 
 
@@ -976,8 +983,8 @@ _ACONNECTWORLD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1501,
-  serialized_end=1549,
+  serialized_start=1515,
+  serialized_end=1563,
 )
 
 
@@ -1007,8 +1014,8 @@ _AWORLDIDSUMMARYQUERY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1551,
-  serialized_end=1589,
+  serialized_start=1565,
+  serialized_end=1603,
 )
 
 
@@ -1045,8 +1052,8 @@ _UWORLDIDSUMMARYREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1591,
-  serialized_end=1646,
+  serialized_start=1605,
+  serialized_end=1660,
 )
 
 
@@ -1083,8 +1090,8 @@ _ADISCONNECTWORLD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1648,
-  serialized_end=1699,
+  serialized_start=1662,
+  serialized_end=1713,
 )
 
 
@@ -1121,8 +1128,8 @@ _AMAKEWORLD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1701,
-  serialized_end=1745,
+  serialized_start=1715,
+  serialized_end=1759,
 )
 
 
@@ -1159,8 +1166,8 @@ _UMADEWORLD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1747,
-  serialized_end=1792,
+  serialized_start=1761,
+  serialized_end=1806,
 )
 
 
@@ -1211,8 +1218,8 @@ _ADISCONNECTACCOUNT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1794,
-  serialized_end=1887,
+  serialized_start=1808,
+  serialized_end=1901,
 )
 
 
@@ -1263,8 +1270,8 @@ _ADISCONNECTPACKAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1889,
-  serialized_end=1981,
+  serialized_start=1903,
+  serialized_end=1995,
 )
 
 
@@ -1308,8 +1315,8 @@ _AWHEREISPACKAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1983,
-  serialized_end=2052,
+  serialized_start=1997,
+  serialized_end=2066,
 )
 
 
@@ -1353,8 +1360,8 @@ _UPACKAGECOORD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2054,
-  serialized_end=2107,
+  serialized_start=2068,
+  serialized_end=2121,
 )
 
 
@@ -1482,8 +1489,8 @@ _UMESSAGES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2110,
-  serialized_end=2761,
+  serialized_start=2124,
+  serialized_end=2775,
 )
 
 
@@ -1618,8 +1625,8 @@ _AMESSAGES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2764,
-  serialized_end=3423,
+  serialized_start=2778,
+  serialized_end=3437,
 )
 
 _ADELIVER.fields_by_name['location'].message_type = _UPSDELIVERYLOCATION
