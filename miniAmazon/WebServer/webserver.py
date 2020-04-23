@@ -8,7 +8,7 @@ from google.protobuf.internal.decoder import _DecodeVarint32
 from google.protobuf.internal.encoder import _VarintEncoder
 from google.protobuf.internal.encoder import _VarintBytes
 
-World_address = ("vcm-12360.vm.duke.edu", 23456)
+World_address = ("vcm-14419.vm.duke.edu", 23456)
 #World_address = ("vcm-12369.vm.duke.edu", 23456)
 Ups_address = ("0.0.0.0", 34567)
 conn = psycopg2.connect(host = "",database = "postgres", user = "postgres",port = "5432",password="postgres")
@@ -74,8 +74,16 @@ def SEQPLUS():
 #init, create the socket for world and UPS, get the worldid from ups, and connect to the world
 def init_world():
     WORLD_SOCKET = create_socket(World_address)
-    UPS_SOCKET = create_socket(Ups_address)
     SEQ = 1
+
+    #create the ups socket
+    tmp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    tmp_socket.bind(Ups_address)
+    print("start listening")
+    tmp_socket.listen(5)
+    print("after listen")
+    UPS_SOCKET = test_socket.accept()[0]
+    print("after accept")
     
     #ask ups for worldid
     command = ups_amazon.AMessages()
@@ -176,7 +184,7 @@ def arrive_handler(arrive):
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
 
-    
+
 #handle packed order: The order is already packed, now we need to update its status to loading, and send load message to world
 def packed_handler(packed):
     send_world_ack(packed)
@@ -255,9 +263,13 @@ def ups_handler():
     for allacks in ups_response.acks:
         print("Receive ack number from ups: ", allack)
     for alltruckreadies in ups_response.truckReadies:
+        print("truck is ready: ", alltruckreadies.truckid)
         send_ups_ack(alltruckreadies)
         update_truckinfo(alltruckreadies)
         trucks_handler(alltruckreadies)
+    for allaccount in ups_response.accountResult:
+        print("receive account result")
+        send_ups_ack(allaccount)
 
 #This funtion update the truck info in database
 def update_truckinfo(alltruckreadies):

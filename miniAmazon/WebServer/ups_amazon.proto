@@ -25,7 +25,7 @@ message AmazonProduct{
 message AGetTruck {
     required int32 whid = 1;
     required int64 packageid = 2;
-    required string uAccountName = 3;
+    optional string uAccountName = 3;
     required int32 x = 4;
     required int32 y = 5;
     repeated AmazonProduct product = 6;
@@ -53,8 +53,8 @@ message UTruckReady {
 
 message ADeliver {
     required int32 truckid = 1;
-    required int64 seqnum = 3; 
-    required int64 worldid = 4;
+    required int64 seqnum = 2; 
+    required int64 worldid = 3;
 }
 
 
@@ -225,7 +225,8 @@ message UMessages {
     //Basic Function
     repeated int64 acks = 1;
     optional UInitialWorldid initialWorldid = 2;
-    repeated UTruckReady truckReadies = 3;
+    optional UAccountResult accountResult = 3;
+    repeated UTruckReady truckReadies = 4;
     //Query
     repeated UAccountPackageQuery uAccountPackageQueries = 5;
     repeated UAccountConnectionResult accountconnectionresult = 6;   
