@@ -40,6 +40,7 @@ class Order(models.Model):
     warehouse = models.ForeignKey(Warehouse, on_delete = models.CASCADE)
     is_processed = models.BooleanField(default=False)
     status = models.TextField(default="packing")
+    truck_id = models.IntegerField(null=True)
 
 class Truck(model.Model):
     truck_num = model.IntegerField()
