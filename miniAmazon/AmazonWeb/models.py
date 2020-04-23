@@ -37,10 +37,10 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     #the fields that server generate                                                                                                                                              
-    warehouse_id = models.ForeignKey(Warehouse, on_delete = models.CASCADE)
+    warehouse = models.ForeignKey(Warehouse, on_delete = models.CASCADE)
     is_processed = models.BooleanField(default=False)
     status = models.TextField(default="packing")
 
 class Truck(model.Model):
-    truck_id = model.IntegerField()
-    warehouse_id = models.ForeignKey(Warehouse)
+    truck_num = model.IntegerField()
+    warehouse = models.ForeignKey(Warehouse)

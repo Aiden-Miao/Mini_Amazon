@@ -1,7 +1,5 @@
 import world_amazon_pb2 as world_amazon
 import world_ups_pb2 as world_ups
-#import AtoU_pb2
-#import UtoA_pb2
 import ups_amazon_pb2 as ups_amazon
 import threading
 import psycopg2
@@ -15,9 +13,11 @@ World_address = ("vcm-12369.vm.duke.edu", 23456)
 Ups_address = ("0.0.0.0", 34567)
 conn = psycopg2.connect(host = "vcm-12360.vm.duke.edu",database = "postgres", user = "postgres",port = "5433")
 global WORLD_SOCKET
-global Seq
+global UPS_SOCKET
+global SEQ
 TOTALL_WHNUM = 1
 SPEED = 99999
+WORLD_ID = 1
 """
 --------------------basic function------------------
 """
@@ -63,10 +63,17 @@ def connect_world(socket, worldID):
     else:
         print("Amazon Connect to world:" + str(response.worldid) + " fails!")
 
+#use a mutex for SEQ++:
+def SEQPLUS():
+    mutex = threading.Lock()
+    with mutex:
+        SEQ = SEQ + 1
+    
 #init, create the socket for world
 def init_world():
     WORLD_SOCKET = create_socket(World_address)
-        
+    UPS_SOCKET = create_socket(Ups_address)
+    SEQ = 1
 """
 ------------------------world function---------------------
 """
@@ -78,7 +85,7 @@ def world_handler():
         print("The error is: ", errors.err)
         
     for allack in world_response.acks:
-        print("Receivce ack number: ", allack)
+        print("Receive ack number from world: ", allack)
 
     for arrive in world_response.arrived:
         print("purchase more succeed, ready to pack!")
@@ -102,15 +109,99 @@ def send_world_ack(world_response):
     response = world.ACommands()
     response.acks.append(world_response.seqnum)
     send_msg(response, WORLD_SOCKET)
+    
 #deal with arrived products    
+def arrive_handler(arrive):
+    send_world_ack(arrive)
+    try:
+        cur = conn.cursor()
+        #if products purchase has arrived, then we start processing these orders
+        cur.execute("SELECT id FROM AmazonWeb_order WHERE status = 'in progress';")
+        rows = cur.fetchall()
+        for row in rows:
+            cur.execute("SELECT products_id, quantity, warehouse_id FROM AmazonWeb_order WHERE id = %s;",row[0])
+            info = cur.fetchone()
+            cur.execute("SELECT name, description FROM AmazonWeb_product WHERE id = %s;"info[0])
+            detail = cur.fetchone()
+            
+            command = world_amazon.ACommands()
+            command.simspeed = SPEED
+            
+            myorder = command.topack.add()
+            myorder.shipid = row[0]
+            myorder.whnum = info[2]
+            myorder.seqnum = SEQ
+            SEQPLUS()
+            mythings = myorder.things.add()
+            mythings.id = info[0]
+            mythings.description = detail[1]
+            mything.count = info[1]
+            
+            #send msg to world, ask for start packing
+            send_msg(command, WORLD_SOCKET)
+            cur.execute("UPDATE AmazonWeb_Product SET status = 'packing' WHERE id = %s;", (row[0]))
+        conn.commit()
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
 
-#pack the product
-def pack_product(whNum, product):
-    command = world_amazon.ACommands()
-    pack_msg = command.topack.add()
-    product = pack_msg.things.add()
-    send_msg(command, WORLD_SOCKET)
+    
+#handle packed order: The order is already packed, now we need to update its status to loading, and send load message to world
+def packed_handler(packed):
+    send_world_ack(packed)
+    try:
+        cur = conn.cursor()
+        cur.execute("UPDATE AmazonWeb_order SET status = 'loading' WHERE id = %s;",(packed.shipid))
+        command = world_amazon.ACommands()
+        command.simspeed = SPEED
+        load_package = command.load.add()
+        cur.execute("SELECT warehouse_id FROM AmazonWeb_order WHERE id = %s;",(packed.shipid))
+        whNum = cur.fetchone()[0]
+        load_package.whnum = whNum
+        load_package.shipid = packed.shipid
+        load_package.seqnum = SEQ
+        SEQPLUS()
+        while(1):
+            cur.execute("SELECT trucknum FROM AmazonWeb_truck WHERE warehouse_id = %s;",(whNum))
+            row = cur.fetchone()
+            if row != None:
+                break
+        load_package.truckid = row[0]
 
+        #send message to world to start packing
+        send(command, WORLDSOCKET)
+        conn.commit()
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+
+#handle loaded order: The order is already loaded, now we need to send message to ups to deliver the package
+def loaded_handler(loaded):
+    send_world_ack(loaded)
+    try:
+        cur = conn.cursor()
+        cur.execute("UPDATE AmazonWeb_order SET status = 'loaded' WHERE id = %s;",(loaded.shipid))
+        cur.execute("SELECT warehouse_id FROM AmazonWeb_order WHERE id = %s;",(loaded.shipid))
+        whid = cur.fetchone()[0]
+        while(1):
+            cur.execute("SELECT trucknum FROM AmazonWeb_truck WHERE warehouse_id = %s;",(whid))
+            row = cur.fetchone()
+            if row != None:
+                break
+        truckid = row[0]
+        command = ups_amazon.AMessages()
+        Deliver = command.delivers.add()
+        Deliver.truckid = truckid
+        Deliver.worldid = WORLD_ID
+        
+        #send message for ups to start deliver package 
+        send_msg(command, UPS_SOCKET)
+        conn.commit()
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        
+        
 #send message from amazon to ups and receive response
 def AMAZON_to_UPS(message):
     UPS_socket = create_socket(Ups_address)
@@ -118,11 +209,90 @@ def AMAZON_to_UPS(message):
     response = recv_msg(ups_amazon.UMessages, UPS_socket)
     UPS_socket.close()
     return response
+"""
+--------------------------ups function------------------------
+"""
+#send_ups_ack
+def send_ups_ack(ups_response):
+    print("send ack back.....:ack = ",ups_response.seqnum)
+    response = world.AMessages()
+    response.acks.append(ups_response.seqnum)
+    send_msg(response, UPS_SOCKET)
+    
+def ups_handler():
+    ups_response = recv_message(WORLD_SOCKET, world_amazon.AResponses)
+    for allacks in ups_response.acks:
+        print("Receive ack number from ups: ", allack)
+    for alltruckreadies in ups_response.truckReadies:
+        send_ups_ack(alltruckreadies)
+        update_truckinfo(alltruckreadies)
 
+
+#This funtion update the truck info in database
+def update_truckinfo(alltruckreadies):
+    print("UPS truck is ready, id is: ", alltruckreadies.truckid)
+    try:
+        cur = conn.cursor()
+        #get the warehouse id
+        cur.execute("SELECT warehouse_id FROM AmazonWeb_order WHERE id = %s;",(alltruckreadies.packageid))
+        row = cur.fetchone()
+        whnum = row[0]
+        #if the truck record does nor exist, create a new one
+        cur.execute("SELECT id FROM AmazonWeb_truck WHERE truck_num = %s;",(alltruckreadies.truckid))
+        mytruck = cur.fetchone()
+        if mytruck == None:
+            cur.execute("INSERT INTO AmazonWeb_truck VALUES (%s, %s)",(alltruckreadies.truckid, whnum))
+        else:
+            cur.execute("UPDATE Amazon_Web SET warehouse_id = %s WHERE trucknum = %s;",(alltruckreadies.truckid, whnum))
+        conn.commit()
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+
+#This function request the truck from ups
+def get_truck(order_id):
+    try:
+        cur = conn.cursor()
+        cur.execute("SELECT id, dst_x, dst_y, products_id, quantity, user_id, warehouse_id FROM AmazonWeb_order WHERE id = %s;",(order_id))
+        row = cur.fetchone()
+        command = ups_amazon.AMessages()
+        gettruck = command.getTrucks.add()
+        gettruck.whid = row[6]
+        gettruck.packageid = row[0]
+        gettruck.x = row[1]
+        gettruck.y = row[2]
+        
+        gettruck.seqnum = SEQ
+        SEQPLUS()
+        gettruck.worldid = WORLD_ID
+        
+        #get the user name from django's db
+        user_id = row[5]
+        cur.execute("SELECT name FROM auth_user WHERE auth_user_id = %s;"(user_id))
+        user = cur.fetchone()
+        name = user[0]
+        gettruck.uAccountName = name
+        
+        #use the product id to get the description from product 
+        myproduct = gettruck.product.add()
+        cur.execute("SELECT description FROM AmazonWeb_product WHERE product_id = %s;",(row[3]))
+        product_detail = cur.fetchone()
+        myproduct.description = product_detail[0]
+        myproduct.productid = row[3]
+        myproduct.count = row[4]
+        
+        #send message to request truck
+        send_msg(command, UPS_SOCKET)
+        conn.commit()
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        
+        
 """
 ------------------------website function--------------------
 """
-#In this function, we keep search in the database, see if there is any order open. If it is open, then we start working on this order
+#In this function, we keep search in the database, see if there is any order open. If it is open, then we start working on this order. We use the order id to purchase from world and request truck, then change status to "packing"
 def web_handler():
     print("enter buy on website")
     while(True):
@@ -134,9 +304,10 @@ def web_handler():
                 order_id = orders[0]
                 #update the wharehouse
                 whnum = purchase_in_warehouse(amount,order_id)
-                cur.execute("UPDATE AmazonWeb_order SET warehouse_id = %s WHERE id =%s",(whnum, unique_id))
-                cur.execute("UPDATE AmazonWeb_order SET is_processed = %s",("True"))
+                cur.execute("UPDATE AmazonWeb_order SET warehouse_id = %s WHERE id =%s;",(whnum, unique_id))
+                cur.execute("UPDATE AmazonWeb_order SET is_processed = %s WHERE id =True;")
                 tobuy(order_id)
+                #cur.execute("UPDATE AmazonWeb_order SET status = %s WHERE id =%s;",("packing",unique_id))
             conn.commit()
             cur.close()
         except (Exception, psycopg2.DatabaseError) as error:
@@ -147,32 +318,39 @@ def purchase_in_warehouse(amount,order_id):
     num = 1
     return num
 
-#this function purchase more in warehouse
+#In this function, we purchase more from world and request a truck for our product
 def tobuy(order_id):
     #whnum = order_id % TOTALL_WHNUM
     try:
         cur = conn.cursor()
-        cur.execute("SELECT id,products,quantity FROM AmazonWeb_order WHERE id = %s",(order_id))
+        #get the orderid, productsid, amount and warehouseid
+        cur.execute("SELECT id, products_id, quantity, warehouse_id FROM AmazonWeb_order WHERE id = %s",(order_id))
         row = cur.fetchone()
         order_id = row[0]
         amount = row[2]
+        #get the name and description from product
         cur.execute("SELECT name,description FROM AmazonWeb_Product WHERE id = %s",(row[1]))
         detail = cur.fetchone()
         name = detail[0]
         description = detail[1]
+        
         command = world_amazon.ACommands()
         command.simspeed = SPEED
         BUY = command.buy.add()
+        BUY.whnum = row[3]
+        BUY.seqnum = SEQ
+        SEQPLUS()
         allproducts = BUY.things.add()
         allproducts.id = order_id
-        #maybe description can be the same as name?
         allproducts.description = description
         allpruducts.count = amount
         send_message(WORLD_SOCKET, command)
+        get_truck(order_id)
         conn.commit()
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
-        print(error) 
+        print(error)
+
 """
 #check the availability of a product
 def check_availability(orderid, amount):
@@ -198,7 +376,7 @@ def main():
     connect_world(world_socket, response.connectWorld.worldid[0])
     
 if __name__ == "__main__":
-    thread1 = threading.Thread(target = world_handler, args = (,))
-    thread2 = threading.Thread(target = ups_handler, args = (,))
-    thread3 = threading.Thread(target = web_handler)
+    thread1 = threading.Thread(target = world_handler, args = ())
+    thread2 = threading.Thread(target = ups_handler, args = ())
+    thread3 = threading.Thread(target = web_handler, args = ())
     main()
