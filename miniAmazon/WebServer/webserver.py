@@ -429,4 +429,3 @@ if __name__ == "__main__":
         th.start()
     for th in all_thread:
         th.join()
-    #main()
