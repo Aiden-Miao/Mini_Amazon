@@ -1,0 +1,26 @@
+{% extends "AmazonWeb/base.html" %}
+{% block content %}
+<p>
+  <button type="button" class="btn btn-default" ><a href="{% url 'history' %}">All Orders</a></button>
+  <button type="button" class="btn btn-default" ><a href="{% url 'history_processing' %}">Processing</a></button>
+  <button type="button" class="btn btn-primary" ><a href="{% url 'history_completed' %}">Completed</a></button>
+</p>
+{% if orders %}
+	{% for order in orders %}
+		<article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ order.id }}</a>
+              <small class="text-muted">{{ order.create_time }}</small>
+            </div>
+            <h2><a class="article-title" href="#">{{ order.products.name }}</a></h2>
+            <p class="article-content">Quantity: {{ order.quantity }}</p>
+            <p class="article-content">Deliever to: ( {{ order.dst_x }} , {{order.dst_y}} )</p>
+             <p class="article-content">Status: {{ order.status }}</p>
+          </div>
+        </article>
+	{% endfor %}
+{% else %}
+	<h>You don't have any processing order yet</h>
+{% endif %}
+{% endblock content %}

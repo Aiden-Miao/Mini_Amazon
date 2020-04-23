@@ -10,20 +10,17 @@
 		<article class="media content-section">
           <div class="media-body">
             <div class="article-metadata">
-              <!-- <a class="mr-2" href="#">{{ order.id }}</a> -->
+              <a class="mr-2" href="#">{{ order.id }}</a>
               <small class="text-muted">{{ order.create_time }}</small>
             </div>
-            <h2><a class="article-title">{{ order.products.name }}</a></h2>
-            <p class="article-content">
-              Order ID:  {{order.id}}<br />
-              Quantity:  {{ order.quantity }}<br />
-              Deliever to:  ( {{ order.dst_x }} , {{order.dst_y}} )<br />
-              Status:  {{ order.status }}<br />
-            </p>
+            <h2><a class="article-title" href="#">{{ order.products.name }}</a></h2>
+            <p class="article-content">Quantity: {{ order.quantity }}</p>
+            <p class="article-content">Deliever to: ( {{ order.dst_x }} , {{order.dst_y}} )</p>
+             <p class="article-content">Status: {{ order.status }}</p>
           </div>
         </article>
 	{% endfor %}
 {% else %}
-	<h>You don't have any order yet</h>
+	<h>You don't have any completed order yet</h>
 {% endif %}
 {% endblock content %}

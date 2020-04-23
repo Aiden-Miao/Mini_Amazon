@@ -11,7 +11,7 @@ from google.protobuf.internal.encoder import _VarintBytes
 World_address = ("vcm-12360.vm.duke.edu", 23456)
 #World_address = ("vcm-12369.vm.duke.edu", 23456)
 Ups_address = ("0.0.0.0", 34567)
-conn = psycopg2.connect(host = "vcm-12360.vm.duke.edu",database = "postgres", user = "postgres",port = "5433")
+conn = psycopg2.connect(host = "",database = "postgres", user = "postgres",port = "5432",password="postgres")
 global WORLD_SOCKET
 global UPS_SOCKET
 global SEQ
@@ -90,6 +90,21 @@ def init_world():
 
     #connect to the world
     connect_world(WORLD_SOCKET, WORLD_ID)
+
+    #init warehouse
+    world_msg = world_amazon.AInitWarehouse()
+    world_msg.id = 1
+    world_msg.x = 100
+    world_msg.y = 100
+    send_msg(world_msg, WORLD_SOCKET)
+    try:
+        cur = conn.cursor()
+        cur.execute("INSERT INTO AmazonWeb_warehouse VALUES (%s, %s)",("100", "100"))
+        conn.commit()
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+
 """
 ------------------------world function---------------------
 """

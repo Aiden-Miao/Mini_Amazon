@@ -25,7 +25,7 @@ SECRET_KEY = '9=08o-5^9#e(&k685$gie&hk^_f3ef81p^#^xo(5t6)1525(^#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['vcm-12355.vm.duke.edu','local host']
+ALLOWED_HOSTS = ['vcm-12360.vm.duke.edu','vcm-12355.vm.duke.edu','local host']
 
 
 # Application definition
@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1',
+        'HOST': '',
         'PORT': '5432',
     }
 }
