@@ -27,7 +27,11 @@ urlpatterns = [
     path('logout/',auth_views.LogoutView.as_view(template_name='AmazonWeb/logout.html'),name='logout'),
     path('profile/',AmazonWeb_views.profile,name='profile'),
     path('history/',AmazonWeb_views.history,name='history'),
+    path('history_processing/',AmazonWeb_views.history_processing,name='history_processing'),
+    path('history_completed/',AmazonWeb_views.history_completed,name='history_completed'),
     path('buy/',AmazonWeb_views.buy,name='buy'),
     path('checkstatus/',AmazonWeb_views.checkstatus,name='checkstatus'),
+    path('trackorder/',AmazonWeb_views.trackOrder,name='trackorder'),
     path('search/',AmazonWeb_views.search,name='search'),
+    path('add/',AmazonWeb_views.add,name='add'),
 ]

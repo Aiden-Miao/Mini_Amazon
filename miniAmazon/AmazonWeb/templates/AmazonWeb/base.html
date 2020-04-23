@@ -51,13 +51,18 @@
         </div>
         <div class="col-md-4">
           <div class="content-section">
-            <h3>What to do?</h3>
+            {% if user.is_authenticated %}
+              <h3>Hello, {{user.username}}</h3>
+            {% else %}
+              <h3>Hello, please log in first</h3>
+            {% endif %}
             <p class='text-muted'>
               <ul class="list-group">
-                <li class="list-group-item list-group-item-light"><a href="{% url 'buy' %}">Purchase</a></li>
-                <li class="list-group-item list-group-item-light"><a href="{% url 'history' %}">History</a></li>
-                <li class="list-group-item list-group-item-light"><a href="{% url 'checkstatus' %}">Track</a></li>
-                 <li class="list-group-item list-group-item-light"><a href="{% url 'profile' %}">Profile</a></li>
+                <li class="list-group-item list-group-item-light"><a href="{% url 'buy' %}">Buy Product</a></li>
+                <li class="list-group-item list-group-item-light"><a href="{% url 'history' %}">Your History</a></li>
+                <li class="list-group-item list-group-item-light"><a href="{% url 'trackorder' %}">Track Order</a></li>
+                <li class="list-group-item list-group-item-light"><a href="{% url 'profile' %}">User Profile</a></li>
+                <li class="list-group-item list-group-item-light"><a href="{% url 'add' %}">Add Product</a></li>
               </ul>
             </p>
           </div>

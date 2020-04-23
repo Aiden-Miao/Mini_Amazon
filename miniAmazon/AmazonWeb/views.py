@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import UserRegisterForm,BuyProductForm
+from .forms import UserRegisterForm,BuyProductForm,AddProductForm
 from .models import Product,Order,Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist
 
 def home(request):
     context = {
@@ -34,9 +35,26 @@ def profile(request):
 def history(request):
 	user = User.objects.get(username=request.user.username)
 	context={
-		'orders': Order.objects.filter(user=user)
+		'orders': Order.objects.filter(user=user).order_by('-create_time')
 	}
 	return render(request,'AmazonWeb/history.html',context)
+
+
+@login_required
+def history_processing(request):
+	user = User.objects.get(username=request.user.username)
+	context={
+		'orders': Order.objects.filter(user=user).filter(~Q(status='delivered')).order_by('-create_time')
+	}
+	return render(request,'AmazonWeb/history_processing.html',context)
+
+@login_required
+def history_completed(request):
+	user = User.objects.get(username=request.user.username)
+	context={
+		'orders': Order.objects.filter(user=user).filter(status='delivered').order_by('-create_time')
+	}
+	return render(request,'AmazonWeb/history_completed.html',context)
 
 @login_required
 def buy(request):
@@ -44,16 +62,30 @@ def buy(request):
 		form = BuyProductForm(request.POST)
 		if form.is_valid():
 			buyform=form.save()
-			buyform.description=form.cleaned_data.get('description')
-			product_name=form.cleaned_data.get('name')
-			buyform.products=Product.objects.get(name=product_name)
+			name=form.cleaned_data.get('name')
+			try: 
+				buyform.products=Product.objects.get(name=name)
+			except ObjectDoesNotExist:
+				messages.success(request,f'The product does not exist')
+				return redirect(add)
 			buyform.user=request.user
 			buyform.save()
-			messages.success(request,f'Account created successfully, you can log in now!')
-			return redirect('AmazonWeb-home')
+			messages.success(request,f'Successfully buy the product')
+			return redirect(home)
 	else:
 		form=UserRegisterForm()
 		return render(request,'AmazonWeb/buy.html',{'form':BuyProductForm})
+
+def add(request):
+	if request.method=='POST':
+		form=AddProductForm(request.POST)
+		if form.is_valid():
+			addform=form.save()
+			messages.success(request,f'Successfully add the product')
+			return redirect(home)
+	else:
+		form=AddProductForm()
+		return render(request,'AmazonWeb/add.html',{'form':AddProductForm})
 
 @login_required
 def checkstatus(request):
@@ -69,3 +101,17 @@ def search(request):
 		'page_range':pages[1],
 	}
 	return render(request,'AmazonWeb/Search.html',context)
+
+def getOrder(query=None):
+	order=Order.objects.get(id=query)
+	return order 
+
+def trackOrder(request):
+	context={}
+	query=""
+	if request.GET:
+		query=request.GET['q']
+		context['query']=str(query)
+		order=getOrder(query)
+		context['order']=order
+	return render(request,"AmazonWeb/track_order.html",context)
