@@ -14,8 +14,8 @@ Ups_address = ("0.0.0.0", 34567)
 conn = psycopg2.connect(host = "",database = "postgres", user = "postgres",port = "5432",password="postgres")
 global WORLD_SOCKET
 global UPS_SOCKET
-global SEQ
 global WORLD_ID
+global SEQ
 
 TOTALL_WHNUM = 1
 SPEED = 5
@@ -64,25 +64,18 @@ def connect_world(socket, worldID):
         print("Amazon Connect to world:" + str(response.worldid) + " succeed!")
     else:
         print("Amazon Connect to world:" + str(response.worldid) + " fails!")
-
-#use a mutex for SEQ++:
-def SEQPLUS():
-    mutex = threading.Lock()
-    with mutex:
-        SEQ = SEQ + 1
     
 #init, create the socket for world and UPS, get the worldid from ups, and connect to the world
 def init_world():
-    WORLD_SOCKET = create_socket(World_address)
     SEQ = 1
-
+    WORLD_SOCKET = create_socket(World_address)
     #create the ups socket
     tmp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     tmp_socket.bind(Ups_address)
     print("start listening")
     tmp_socket.listen(5)
     print("after listen")
-    UPS_SOCKET = test_socket.accept()[0]
+    UPS_SOCKET = tmp_socket.accept()[0]
     print("after accept")
     
     #ask ups for worldid
@@ -113,6 +106,12 @@ def init_world():
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
 
+#use a mutex for SEQ++:
+def SEQPLUS():
+    mutex = threading.Lock()
+    with mutex:
+        SEQ = SEQ + 1
+    
 """
 ------------------------world function---------------------
 """
