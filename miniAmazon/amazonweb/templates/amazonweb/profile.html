@@ -5,9 +5,24 @@
       <div class="media">
         <div class="media-body">
           <h2 class="account-heading">{{ user.username }}</h2>
-          <p class="text-secondary">{{ user.email }}</p>
+          <p class="text-secondary">
+          	{{ user.email }}
+          </p>
+          <p>
+          	Common Address:({{ the_profile.myaddress_x}},{{ the_profile.myaddress_y}})
+          </p>
         </div>
       </div>
-      <!-- FORM HERE -->
+       <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <fieldset class="form-group">
+              <legend class="border-bottom mb-4">Update Profile</legend>
+              {{ email_form|crispy }}
+              {{ profile_form|crispy }}
+          </fieldset>
+          <div class="form-group">
+              <button class="btn btn-outline-info" type="submit">Update</button>
+          </div>
+      </form>
     </div>
 {% endblock content %}

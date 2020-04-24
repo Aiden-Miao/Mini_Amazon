@@ -8,8 +8,9 @@ from google.protobuf.internal.decoder import _DecodeVarint32
 from google.protobuf.internal.encoder import _VarintEncoder
 from google.protobuf.internal.encoder import _VarintBytes
 
-World_address = ("vcm-14419.vm.duke.edu", 23456)
-#World_address = ("vcm-12369.vm.duke.edu", 23456)
+#World_address = ("vcm-14419.vm.duke.edu", 23456)
+#World_address = ("vcm-12360.vm.duke.edu", 23456)
+World_address = ("vcm-12360.vm.duke.edu", 23456)
 Ups_address = ("0.0.0.0", 34567)
 conn = psycopg2.connect(host = "",database = "postgres", user = "postgres",port = "5432",password="postgres")
 
@@ -58,8 +59,22 @@ def create_socket(address):
 #connect to world
 def connect_world(socket):
     connect_msg = world_amazon.AConnect()
-    #connect_msg.worldid = WORLD_ID
+    connect_msg.worldid = WORLD_ID
     connect_msg.isAmazon = True
+
+    #init warehouse
+    world_msg = connect_msg.initwh.add()
+    world_msg.x = 100
+    world_msg.y = 100
+    try:
+        cur = conn.cursor()
+        cur.execute("INSERT INTO amazonweb_warehouse (x_location, y_location) VALUES (%s, %s)",("100", "100"))
+        conn.commit()
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    world_msg.id = create_warehouse()
+    
     send_msg(connect_msg,socket)
     response = recv_msg(world_amazon.AConnected, socket)
     if response.result == "connected!":
@@ -75,7 +90,7 @@ def init_world():
     global WORLD_ID
     
     WORLD_SOCKET = create_socket(World_address)
-    """
+
     #create the ups socket
     tmp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     tmp_socket.bind(Ups_address)
@@ -93,21 +108,19 @@ def init_world():
 
     #get the worldid from ups, can connect to world
     response1 = recv_msg(ups_amazon.UMessages,UPS_SOCKET)
-    
     response = recv_msg(ups_amazon.UMessages,UPS_SOCKET)
     send_ups_ack(response.initialWorldid)
     WORLD_ID = response.initialWorldid.worldid[0]
-    """
-    WORLD_ID = 4
+    #WORLD_ID = 17
     #connect to the world
     connect_world(WORLD_SOCKET)
-
+    """
     #init warehouse
     world_msg = world_amazon.AInitWarehouse()
 
     world_msg.x = 100
     world_msg.y = 100
-
+   
     try:
         cur = conn.cursor()
         cur.execute("INSERT INTO amazonweb_warehouse (x_location, y_location) VALUES (%s, %s)",("100", "100"))
@@ -118,6 +131,7 @@ def init_world():
     world_msg.id = create_warehouse()
     print("init warehouse id is:", world_msg.id)
     send_msg(world_msg, WORLD_SOCKET)
+    """
 
 #use a mutex for SEQ++:
 def SEQPLUS():
@@ -131,34 +145,36 @@ def SEQPLUS():
 """
 #world handler
 def world_handler():
-    world_response = recv_msg(world_amazon.AResponses,WORLD_SOCKET)
-    for errors in world_response.error:
-        print("The error is from command: ", errors.originseqnum)
-        print("The error is: ", errors.err)
+    while(1):
+        world_response = recv_msg(world_amazon.AResponses,WORLD_SOCKET)
+        for errors in world_response.error:
+            print("The error is from command: ", errors.originseqnum)
+            print("The error is: ", errors.err)
+            
+        for allack in world_response.acks:
+            print("Receive ack number from world: ", allack)
+                
+        for arrive in world_response.arrived:
+            print("purchase more succeed, ready to pack!")
+            arrive_handler(arrive)
+                    
+        for packed in world_response.ready:
+            print("order packed, ready to load!")
+            packed_handler(packed)
+                    
+        for loaded in world_response.loaded:
+            print("order loaded, ready to let truck go!")
+            loaded_handler(loaded)
         
-    for allack in world_response.acks:
-        print("Receive ack number from world: ", allack)
-
-    for arrive in world_response.arrived:
-        print("purchase more succeed, ready to pack!")
-        arrive_handler(arrive)
-
-    for packed in world_response.ready:
-        print("order packed, ready to load!")
-        packed_handler(packed)
-
-    for loaded in world_response.loaded:
-        print("order loaded, ready to let truck go!")
-        loaded_handler(loaded)
-
-    if world_response.finished == True:
-        print("Close world connection...")
-        WORLD_SOCKET.close()
+        if world_response.finished == True:
+            print("Close world connection...")
+            WORLD_SOCKET.close()
+            break
 
         
 #send_world_ack
 def send_world_ack(world_response):
-    response = world.ACommands()
+    response = world_amazon.ACommands()
     response.acks.append(world_response.seqnum)
     send_msg(response, WORLD_SOCKET)
     
@@ -168,30 +184,40 @@ def arrive_handler(arrive):
     try:
         cur = conn.cursor()
         #if products purchase has arrived, then we start processing these orders
-        cur.execute("SELECT id FROM AmazonWeb_order WHERE status = in progress;")
+        print("in prorgess")
+        cur.execute("SELECT id FROM AmazonWeb_order WHERE status = 'in progress';")
         rows = cur.fetchall()
         for row in rows:
-            cur.execute("SELECT products_id, quantity, warehouse_id FROM AmazonWeb_order WHERE id = %s;",row[0])
+            print("iterate all the order")
+            cur.execute("SELECT products_id, quantity, warehouse_id FROM AmazonWeb_order WHERE id = %s;",(row))
             info = cur.fetchone()
-            cur.execute("SELECT name, description FROM AmazonWeb_product WHERE id = %s;",info[0])
+            print("get details")
+            cur.execute("SELECT name, description FROM AmazonWeb_product WHERE id = %s;",([info[0]]))
             detail = cur.fetchone()
             
             command = world_amazon.ACommands()
-            command.simspeed = SPEED
-            
+            #command.simspeed = SPEED
+            print("add topack")
             myorder = command.topack.add()
+            print("add row")
             myorder.shipid = row[0]
+            print("add info 2")
             myorder.whnum = info[2]
             myorder.seqnum = SEQ
             SEQPLUS()
+            print("add things")
             mythings = myorder.things.add()
+            print("info 0")
             mythings.id = info[0]
+            print("detail 1")
             mythings.description = detail[1]
+            print("detail info 1")
             mythings.count = info[1]
             
             #send msg to world, ask for start packing
+            print("send msg to pack")
             send_msg(command, WORLD_SOCKET)
-            cur.execute("UPDATE AmazonWeb_Product SET status = 'packing' WHERE id = %s;", (row[0]))
+            cur.execute("UPDATE AmazonWeb_order SET status = 'packing' WHERE id = %s;", (row))
         conn.commit()
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
@@ -203,9 +229,10 @@ def packed_handler(packed):
     send_world_ack(packed)
     try:
         #get truck after we already packed the products
+        print("the ship id is:", packed.shipid)
         get_truck(packed.shipid)
         cur = conn.cursor()
-        cur.execute("UPDATE AmazonWeb_order SET status = 'loading' WHERE id = %s;",(packed.shipid))
+        cur.execute("UPDATE AmazonWeb_order SET status = 'loading' WHERE id = %s;",([packed.shipid]))
         """
         command = world_amazon.ACommands()
         command.simspeed = SPEED
@@ -236,8 +263,8 @@ def loaded_handler(loaded):
     send_world_ack(loaded)
     try:
         cur = conn.cursor()
-        cur.execute("UPDATE AmazonWeb_order SET status = 'loaded' WHERE id = %s;",(loaded.shipid))
-        cur.execute("SELECT warehouse_id,truck_id FROM AmazonWeb_order WHERE id = %s;",(loaded.shipid))
+        cur.execute("UPDATE AmazonWeb_order SET status = 'loaded' WHERE id = %s;",([loaded.shipid]))
+        cur.execute("SELECT warehouse_id,truck_id FROM AmazonWeb_order WHERE id = %s;",([loaded.shipid]))
         row = cur.fetchone()
         whid = row[0]
         truckid = row[1]
@@ -245,8 +272,10 @@ def loaded_handler(loaded):
         Deliver = command.delivers.add()
         Deliver.truckid = truckid
         Deliver.worldid = WORLD_ID
+        Deliver.seqnum = SEQ
+        SEQPLUS()
         #send message for ups to start deliver package
-        cur.execute("UPDATE AmazonWeb_order SET status = 'in delivery' WHERE id = %s;",(loaded.shipid))
+        cur.execute("UPDATE AmazonWeb_order SET status = 'in delivery' WHERE id = %s;",([loaded.shipid]))
         send_msg(command, UPS_SOCKET)
         conn.commit()
         cur.close()
@@ -273,34 +302,38 @@ def send_ups_ack(ups_response):
     
 def ups_handler():
     while(1):
-        ups_response = recv_msg(world_amazon.AResponses,WORLD_SOCKET)
+        ups_response = recv_msg(ups_amazon.UMessages,UPS_SOCKET)
         for allacks in ups_response.acks:
-            print("Receive ack number from ups: ", allack)
+            print("Receive ack number from ups: ", allacks)
         for alltruckreadies in ups_response.truckReadies:
             print("truck is ready: ", alltruckreadies.truckid)
             send_ups_ack(alltruckreadies)
             update_truckinfo(alltruckreadies)
             trucks_handler(alltruckreadies)
+        """    
         for allaccount in ups_response.accountResult:
             print("receive account result")
             send_ups_ack(allaccount)
-
+        """
+        
 #This funtion update the truck info in database
 def update_truckinfo(alltruckreadies):
     print("UPS truck is ready, id is: ", alltruckreadies.truckid)
     try:
         cur = conn.cursor()
         #get the warehouse id
-        cur.execute("SELECT warehouse_id FROM AmazonWeb_order WHERE id = %s;",(alltruckreadies.packageid))
+        print("get the warehouse id for ups")
+        cur.execute("SELECT warehouse_id FROM AmazonWeb_order WHERE id = %s;",([alltruckreadies.packageid]))
         row = cur.fetchone()
         whnum = row[0]
         #if the truck record does nor exist, create a new one
-        cur.execute("SELECT id FROM AmazonWeb_truck WHERE truck_num = %s;",(alltruckreadies.truckid))
+        print("check if truck exists")
+        cur.execute("SELECT id FROM AmazonWeb_truck WHERE truck_num = %s;",([alltruckreadies.truckid]))
         mytruck = cur.fetchone()
         if mytruck == None:
-            cur.execute("INSERT INTO AmazonWeb_truck VALUES (%s, %s)",(alltruckreadies.truckid, whnum))
+            cur.execute("INSERT INTO AmazonWeb_truck (truck_num, warehouse_id) VALUES (%s, %s)",(alltruckreadies.truckid, whnum))
         else:
-            cur.execute("UPDATE Amazon_Web SET warehouse_id = %s WHERE trucknum = %s;",(alltruckreadies.truckid, whnum))
+            cur.execute("UPDATE AmazonWeb_truck SET warehouse_id = %s WHERE truck_num = %s;",(whnum,alltruckreadies.truckid))
         conn.commit()
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
@@ -311,30 +344,38 @@ def trucks_handler(alltruckreadies):
     order_id = alltruckreadies.packageid
     try:
         cur = conn.cursor()
-        cur.execute("SELECT warehouse_id FROM AmazonWeb_order WHERE id = %s;",(order_id))
+        print("enter truck handler")
+        cur.execute("SELECT warehouse_id FROM AmazonWeb_order WHERE id = %s;",([order_id]))
         command = world_amazon.ACommands()
-        command.simspeed = SPEED
+        #command.simspeed = SPEED
         load_package = command.load.add()
-        whNum = cur.fetchone()[0]
+        row = cur.fetchall()
+        whNum = row[0][0]
+        print("warehouse number is: ", whNum)
         load_package.whnum = whNum
+        print("shipid is: ", order_id)
         load_package.shipid = order_id
+        print("SEQ is: ", SEQ)
         load_package.seqnum = SEQ
         SEQPLUS()
         load_package.truckid = alltruckreadies.truckid
 
         #update order database, set the truck id
+        print("update to in deliver")
         cur.execute("UPDATE AmazonWeb_order SET truck_id = %s WHERE id = %s;",(alltruckreadies.truckid, order_id))
 
         #send message to world to start loading
-        send(command, WORLDSOCKET)
+        print("ask world to start loading")
+        send_msg(command, WORLD_SOCKET)
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
         
 #This function request the truck from ups
 def get_truck(order_id):
     try:
+        print("enter get truck")
         cur = conn.cursor()
-        cur.execute("SELECT id, dst_x, dst_y, products_id, quantity, user_id, warehouse_id FROM AmazonWeb_order WHERE id = %s;",(order_id))
+        cur.execute("SELECT id, dst_x, dst_y, products_id, quantity, user_id, warehouse_id FROM AmazonWeb_order WHERE id = %s;",([order_id]))
         row = cur.fetchone()
         command = ups_amazon.AMessages()
         gettruck = command.getTrucks.add()
@@ -348,15 +389,19 @@ def get_truck(order_id):
         gettruck.worldid = WORLD_ID
         
         #get the user name from django's db
+        print("get user name")
         user_id = row[5]
-        cur.execute("SELECT name FROM auth_user WHERE auth_user_id = %s;"(user_id))
+        cur.execute("SELECT username FROM auth_user WHERE id = %s;",([user_id]))
         user = cur.fetchone()
+        print("user name is: ",user[0])
         name = user[0]
+        print("user name is:", name)
         gettruck.uAccountName = name
         
-        #use the product id to get the description from product 
+        #use the product id to get the description from product
+        print("get product detail")
         myproduct = gettruck.product.add()
-        cur.execute("SELECT description FROM AmazonWeb_product WHERE product_id = %s;",(row[3]))
+        cur.execute("SELECT description FROM AmazonWeb_product WHERE id = %s;",([row[3]]))
         product_detail = cur.fetchone()
         myproduct.description = product_detail[0]
         myproduct.productid = row[3]
@@ -364,6 +409,7 @@ def get_truck(order_id):
         
         #send message to request truck
         send_msg(command, UPS_SOCKET)
+        print("send truck successfully")
         conn.commit()
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
@@ -392,6 +438,7 @@ def web_handler():
                 cur.execute("UPDATE AmazonWeb_order SET is_processed = True WHERE id =%s;",([order_id]))
                 print("ready to buy")
                 tobuy(order_id)
+                print("after tobuy order")
                 #cur.execute("UPDATE AmazonWeb_order SET status = %s WHERE id =%s;",("packing",unique_id))
                 conn.commit()
                 cur.close()
@@ -438,17 +485,17 @@ def tobuy(order_id):
         description = detail[1]
         
         command = world_amazon.ACommands()
-        command.simspeed = SPEED
+        #command.simspeed = SPEED
         BUY = command.buy.add()
         BUY.whnum = row[3]
         BUY.seqnum = SEQ
         SEQPLUS()
         allproducts = BUY.things.add()
-        allproducts.id = order_id
+        allproducts.id = row[1]
         allproducts.description = description
         allproducts.count = amount
         send_msg(command, WORLD_SOCKET)
-        
+        print("after purchase more")
         #shouldn'e get truck here, should get truck after packed
         #get_truck(order_id)
         conn.commit()
@@ -485,9 +532,9 @@ def main():
 if __name__ == "__main__":
     init_world()
     thread1 = threading.Thread(target = world_handler, args = ())
-    #thread2 = threading.Thread(target = ups_handler, args = ())
+    thread2 = threading.Thread(target = ups_handler, args = ())
     thread3 = threading.Thread(target = web_handler, args = ())
-    all_thread =[thread1, thread3]
+    all_thread =[thread1, thread2, thread3]
     for th in all_thread:
         th.start()
     for th in all_thread:

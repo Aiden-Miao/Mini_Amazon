@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import UserRegisterForm,BuyProductForm,AddProductForm
+from .forms import UserRegisterForm,BuyProductForm,AddProductForm,UpdateProfileForm,UpdateEmailForm
 from .models import Product,Order,Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.mail import send_mail
 
 def home(request):
     context = {
@@ -21,6 +22,13 @@ def register(request):
             form.save()
             username=form.cleaned_data.get('username')
             messages.success(request,f'Account created successfully, you can log in now!')
+    #         send_mail(
+				#     'Thank you for registering our website!',
+				#     'Hi there, Welcome to our MiniAmazon!',
+				#     'Mini Amazon',
+				#     [request.user.email],
+				#     fail_silently=False,
+				# )
             return redirect('login')
     else:
         form=UserRegisterForm()
@@ -29,7 +37,39 @@ def register(request):
 
 @login_required
 def profile(request):
-	return render(request,'amazonweb/profile.html')
+	if request.method=='POST':
+		email=UpdateEmailForm(request.POST,instance=request.user)
+		the_profile=Profile.objects.get(user=request.user)
+		profile=UpdateProfileForm(request.POST,instance=the_profile)
+		if profile.is_valid() and email.is_valid():
+			profile.save()
+			email.save()
+			messages.success(request,f'User Profile have been updated successfully.')
+			send_mail(
+			    'Subject here',
+			    'Here is the message.',
+			    'Mini Amazon',
+			    [request.user.email],
+			    fail_silently=False,
+			)
+		   	# send_mail(
+		   	# 	'Update Profile Notification',
+		   	# 	'You have successfully updated your profile',
+		   	# 	'Mini Amazon',
+		   	# 	[request.user.email],
+		   	# 	fail_silently=False,
+		   	# )
+			return redirect(home)
+	else:
+		profile=UpdateProfileForm(instance=request.user)
+		the_profile=Profile.objects.get(user=request.user)
+		email=UpdateEmailForm(instance=the_profile)
+		context={
+			'profile_form':profile,
+			'email_form':email,
+			'the_profile':the_profile
+		}
+		return render(request,'amazonweb/profile.html',context)
 
 @login_required
 def history(request):
@@ -61,17 +101,19 @@ def buy(request):
 	if request.method=='POST':
 		form = BuyProductForm(request.POST)
 		if form.is_valid():
-			buyform=form.save()
+			#CHECK IF THE ITEM EXISTS
 			name=form.cleaned_data.get('name')
-			try: 
-				buyform.products=Product.objects.get(name=name)
+			try:
+				the_product=Product.objects.get(name=name)
+				buyform=form.save()
+				buyform.products=the_product
+				buyform.user=request.user
+				buyform.save()
+				messages.success(request,f'Successfully buy the product')
+				return redirect(home)
 			except ObjectDoesNotExist:
 				messages.success(request,f'The product does not exist')
 				return redirect(add)
-			buyform.user=request.user
-			buyform.save()
-			messages.success(request,f'Successfully buy the product')
-			return redirect(home)
 	else:
 		form=UserRegisterForm()
 		return render(request,'amazonweb/buy.html',{'form':BuyProductForm})
@@ -103,8 +145,11 @@ def search(request):
 	return render(request,'amazonweb/Search.html',context)
 
 def getOrder(query=None):
-	order=Order.objects.get(id=query)
-	return order 
+	try:
+		order=Order.objects.get(id=query)
+		return order
+	except ObjectDoesNotExist:
+		return None
 
 def trackOrder(request):
 	context={}
@@ -114,4 +159,8 @@ def trackOrder(request):
 		context['query']=str(query)
 		order=getOrder(query)
 		context['order']=order
-	return render(request,"amazonweb/track_order.html",context)
+		context['is_search']=True
+		return render(request,"amazonweb/track_order.html",context)
+	else:
+		context['is_search']=False
+		return render(request,"amazonweb/track_order.html",context)
