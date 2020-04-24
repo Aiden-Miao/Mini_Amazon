@@ -1,0 +1,15 @@
+{% extends "AmazonWeb/base.html" %}
+{% block content %}
+     {% for product in products %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" >Product ID:  {{ product.id }}</a>
+            </div>
+            <h2><a class="article-title" href="#">{{ product.name }}</a></h2>
+            <p class="article-content">$ {{ product.price }} <br />{{ product.description }}
+            </p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

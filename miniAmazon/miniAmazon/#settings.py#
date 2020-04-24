@@ -31,7 +31,6 @@ ALLOWED_HOSTS = ['vcm-12360.vm.duke.edu','vcm-12355.vm.duke.edu','local host']
 # Application definition
 
 INSTALLED_APPS = [
-
     'amazonweb.apps.AmazonwebConfig',
     'crispy_forms',
     'django.contrib.admin',

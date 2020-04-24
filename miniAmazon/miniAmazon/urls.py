@@ -16,22 +16,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from AmazonWeb import views as AmazonWeb_views
+from amazonweb import views as amazonweb_views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('AmazonWeb.urls')),
-    path('register/', AmazonWeb_views.register,name='register'),
-    path('login/',auth_views.LoginView.as_view(template_name='AmazonWeb/login.html'),name='login'),
-    path('logout/',auth_views.LogoutView.as_view(template_name='AmazonWeb/logout.html'),name='logout'),
-    path('profile/',AmazonWeb_views.profile,name='profile'),
-    path('history/',AmazonWeb_views.history,name='history'),
-    path('history_processing/',AmazonWeb_views.history_processing,name='history_processing'),
-    path('history_completed/',AmazonWeb_views.history_completed,name='history_completed'),
-    path('buy/',AmazonWeb_views.buy,name='buy'),
-    path('checkstatus/',AmazonWeb_views.checkstatus,name='checkstatus'),
-    path('trackorder/',AmazonWeb_views.trackOrder,name='trackorder'),
-    path('search/',AmazonWeb_views.search,name='search'),
-    path('add/',AmazonWeb_views.add,name='add'),
+    path('', include('amazonweb.urls')),
+    path('register/', amazonweb_views.register,name='register'),
+    path('login/',auth_views.LoginView.as_view(template_name='amazonweb/login.html'),name='login'),
+    path('logout/',auth_views.LogoutView.as_view(template_name='amazonweb/logout.html'),name='logout'),
+    path('profile/',amazonweb_views.profile,name='profile'),
+    path('history/',amazonweb_views.history,name='history'),
+    path('history_processing/',amazonweb_views.history_processing,name='history_processing'),
+    path('history_completed/',amazonweb_views.history_completed,name='history_completed'),
+    path('buy/',amazonweb_views.buy,name='buy'),
+    path('checkstatus/',amazonweb_views.checkstatus,name='checkstatus'),
+    path('trackorder/',amazonweb_views.trackOrder,name='trackorder'),
+    path('search/',amazonweb_views.search,name='search'),
+    path('add/',amazonweb_views.add,name='add'),
 ]

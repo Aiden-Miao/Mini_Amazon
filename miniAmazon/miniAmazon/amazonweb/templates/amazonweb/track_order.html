@@ -1,0 +1,29 @@
+{% extends "amazonweb/base.html" %}
+{% block content %}
+<div class="search-bar mt-sm-2 mr-2">
+	<form method="get">
+		<input type="text" class="form-control" name="q" id="id_q" placeholder="search..." value="{{ query }}">
+	</form>
+</div>
+{% if order %}
+	<article class="media content-section">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2">{{ order.id }}</a>
+          <small class="text-muted">{{ order.create_time }}</small>
+        </div>
+        <h2><a class="article-title" href="#">{{ order.products.name }}</a></h2>
+        <p class="article-content">Quantity: {{ order.quantity }}</p>
+        <p class="article-content">Deliever to: ( {{ order.dst_x }} , {{order.dst_y}} )</p>
+         <p class="article-content">Status: {{ order.status }}</p>
+      </div>
+    </article>
+{% else %}
+	<article class="media content-section">
+	 <div class="media-body">
+        <h2><a class="article-title">No Order Found</a></h2>
+        <p class="article-content">There is no results matching your serach</p>
+      </div>
+	</article>
+{% endif %}
+{% endblock content %}
