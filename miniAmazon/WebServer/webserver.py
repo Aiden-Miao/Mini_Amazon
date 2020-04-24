@@ -10,7 +10,7 @@ from google.protobuf.internal.encoder import _VarintBytes
 
 #World_address = ("vcm-14419.vm.duke.edu", 23456)
 #World_address = ("vcm-12360.vm.duke.edu", 23456)
-World_address = ("vcm-12360.vm.duke.edu", 23456)
+World_address = ("vcm-12369.vm.duke.edu", 23456)
 Ups_address = ("0.0.0.0", 34567)
 conn = psycopg2.connect(host = "",database = "postgres", user = "postgres",port = "5432",password="postgres")
 
@@ -188,34 +188,23 @@ def arrive_handler(arrive):
         cur.execute("SELECT id FROM AmazonWeb_order WHERE status = 'in progress';")
         rows = cur.fetchall()
         for row in rows:
-            print("iterate all the order")
             cur.execute("SELECT products_id, quantity, warehouse_id FROM AmazonWeb_order WHERE id = %s;",(row))
             info = cur.fetchone()
-            print("get details")
             cur.execute("SELECT name, description FROM AmazonWeb_product WHERE id = %s;",([info[0]]))
             detail = cur.fetchone()
             
             command = world_amazon.ACommands()
             #command.simspeed = SPEED
-            print("add topack")
             myorder = command.topack.add()
-            print("add row")
             myorder.shipid = row[0]
-            print("add info 2")
             myorder.whnum = info[2]
             myorder.seqnum = SEQ
             SEQPLUS()
-            print("add things")
             mythings = myorder.things.add()
-            print("info 0")
             mythings.id = info[0]
-            print("detail 1")
             mythings.description = detail[1]
-            print("detail info 1")
             mythings.count = info[1]
-            
             #send msg to world, ask for start packing
-            print("send msg to pack")
             send_msg(command, WORLD_SOCKET)
             cur.execute("UPDATE AmazonWeb_order SET status = 'packing' WHERE id = %s;", (row))
         conn.commit()
@@ -310,6 +299,10 @@ def ups_handler():
             send_ups_ack(alltruckreadies)
             update_truckinfo(alltruckreadies)
             trucks_handler(alltruckreadies)
+        for deliveredpackage in ups_response.deliveredpackages:
+            print("package delivered: ", deliveredpackage.packageid)
+            send_ups_ack(deliveredpackage)
+            delivered_handler(deliverpackage)
         """    
         for allaccount in ups_response.accountResult:
             print("receive account result")
@@ -415,6 +408,16 @@ def get_truck(order_id):
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
         
+#This function update the order info to delivered
+def delivered_handler(packages):
+    order_id = packages.packageid
+    try:
+        cur = conn.cursor()
+        cur.execute("UPDATE amazonweb_order SET status = 'delivered' WHERE id = %s;",([order_id]))
+        conn.commit()
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error) 
         
 """
 ------------------------website function--------------------

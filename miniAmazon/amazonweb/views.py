@@ -22,13 +22,6 @@ def register(request):
             form.save()
             username=form.cleaned_data.get('username')
             messages.success(request,f'Account created successfully, you can log in now!')
-    #         send_mail(
-				#     'Thank you for registering our website!',
-				#     'Hi there, Welcome to our MiniAmazon!',
-				#     'Mini Amazon',
-				#     [request.user.email],
-				#     fail_silently=False,
-				# )
             return redirect('login')
     else:
         form=UserRegisterForm()
@@ -46,19 +39,12 @@ def profile(request):
 			email.save()
 			messages.success(request,f'User Profile have been updated successfully.')
 			send_mail(
-			    'Subject here',
-			    'Here is the message.',
+			    'Update Profile-Mini Amazon',
+			    'You have updated your profile successfully',
 			    'Mini Amazon',
 			    [request.user.email],
 			    fail_silently=False,
 			)
-		   	# send_mail(
-		   	# 	'Update Profile Notification',
-		   	# 	'You have successfully updated your profile',
-		   	# 	'Mini Amazon',
-		   	# 	[request.user.email],
-		   	# 	fail_silently=False,
-		   	# )
 			return redirect(home)
 	else:
 		profile=UpdateProfileForm(instance=request.user)
@@ -99,7 +85,8 @@ def history_completed(request):
 @login_required
 def buy(request):
 	if request.method=='POST':
-		form = BuyProductForm(request.POST)
+		the_profile=Profile.objects.get(user=request.user)
+		form = BuyProductForm(request.POST,initial={'dst_x':the_profile.myaddress_x,'dst_y':the_profile.myaddress_y})
 		if form.is_valid():
 			#CHECK IF THE ITEM EXISTS
 			name=form.cleaned_data.get('name')
@@ -110,12 +97,20 @@ def buy(request):
 				buyform.user=request.user
 				buyform.save()
 				messages.success(request,f'Successfully buy the product')
+				send_mail(
+				    'Order Being Processed-Mini Amazon',
+				    'Thank you for shopping with us, your order is in process.',
+				    'Mini Amazon',
+				    [request.user.email],
+				    fail_silently=False,
+				)
 				return redirect(home)
 			except ObjectDoesNotExist:
 				messages.success(request,f'The product does not exist')
 				return redirect(add)
 	else:
-		form=UserRegisterForm()
+		the_profile=Profile.objects.get(user=request.user)
+		form=BuyProductForm(initial={'dst_x':the_profile.myaddress_x,'dst_y':the_profile.myaddress_y})
 		return render(request,'amazonweb/buy.html',{'form':BuyProductForm})
 
 def add(request):

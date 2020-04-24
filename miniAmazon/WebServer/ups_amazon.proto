@@ -215,7 +215,13 @@ message UPackageCoord {
     required int64 seqnum = 3;
 }
 
-
+/////////////////////////////////////////////////////////////////////////////
+/// UtoA_8: inform Amazon the package is already delivered
+/////////////////////////////////////////////////////////////////////////////
+message UPackageDelivered {
+    required int64 packageid = 1;
+    required int64 seqnum = 2;
+}
 
 ////////////////////////////////////////
 /// Summary for Commands & Responses
@@ -239,6 +245,7 @@ message UMessages {
     optional UWorldidSummaryReply worldidSummaryReply = 13;
     optional UMadeWorld madeWorld = 14;
     repeated UPackageCoord packageCoords = 15;
+    repeated UPackageDelivered deliveredpackages = 16; 
 }
 
 // Amazon's responses

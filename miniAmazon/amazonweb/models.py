@@ -20,6 +20,8 @@ class Profile(models.Model):
     myaddress_y = models.IntegerField(null=True,default=0)
     def __str__(self):
         return f'{self.user.username} Profile'
+    def save(self):
+        super().save()
 
 class Order(models.Model):
     #the fields user generate                                                                                                                                                     
