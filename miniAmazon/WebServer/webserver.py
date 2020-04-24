@@ -302,12 +302,10 @@ def ups_handler():
         for deliveredpackage in ups_response.deliveredpackages:
             print("package delivered: ", deliveredpackage.packageid)
             send_ups_ack(deliveredpackage)
-            delivered_handler(deliverpackage)
-        """    
-        for allaccount in ups_response.accountResult:
+            delivered_handler(deliveredpackage)
+        if ups_response HasField('accountResult'):
             print("receive account result")
-            send_ups_ack(allaccount)
-        """
+            send_ups_ack(ups_response.accountResult)
         
 #This funtion update the truck info in database
 def update_truckinfo(alltruckreadies):
