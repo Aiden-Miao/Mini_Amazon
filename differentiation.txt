@@ -1,0 +1,21 @@
+Our webstie support the following functionality:
+
+1. Create Account
+   A user should be able to create an account if they do not have one
+
+2. Login/Logout
+   A user with an account should be able to login and logout
+
+3. Update Profile
+   A user should be able to update his email address and common address
+
+4. Order Status Viewing
+   A user should be able to look at all the previous orders.
+   With click on the top of history page, the user can also see the different status orders accordingly.
+
+5. Create Item With Price
+   When user is buying somthing that is not in inventory, he will be redirect to the create product page, where he can set up the product name, description and price.
+
+6. Inventory
+   A user should be able to see all the products in the inventory with details from home page.
+

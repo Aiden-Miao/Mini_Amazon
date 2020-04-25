@@ -10,7 +10,7 @@ from google.protobuf.internal.encoder import _VarintBytes
 
 #World_address = ("vcm-14419.vm.duke.edu", 23456)
 #World_address = ("vcm-12360.vm.duke.edu", 23456)
-World_address = ("vcm-12369.vm.duke.edu", 23456)
+World_address = ("vcm-12360.vm.duke.edu", 23456)
 Ups_address = ("0.0.0.0", 34567)
 conn = psycopg2.connect(host = "",database = "postgres", user = "postgres",port = "5432",password="postgres")
 
@@ -303,7 +303,7 @@ def ups_handler():
             print("package delivered: ", deliveredpackage.packageid)
             send_ups_ack(deliveredpackage)
             delivered_handler(deliveredpackage)
-        if ups_response HasField('accountResult'):
+        if ups_response.HasField('accountResult'):
             print("receive account result")
             send_ups_ack(ups_response.accountResult)
         

@@ -1,0 +1,8 @@
+1. [Problem] Users password may be exploited by malicious user
+   [Fixed] Use User model from django Auth Library, which adopts hash and salt to preserve the users' passwords.
+
+2. [Problem] One can look at others history orders.
+   [Fixed] Add log-in-required before the history function in views.py. Same with track order. So that one cannot track the order that is not ordered by himself.
+
+3. [Problem] When track some non-existent order id, the page would go wrong.
+   [Fixed] by adding IF/ELSE code to check if the Order.objects.get() raises an exception.
